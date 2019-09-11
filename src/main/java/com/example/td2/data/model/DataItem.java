@@ -37,106 +37,6 @@ public class DataItem implements Parcelable {
     private int sortPosition;
     private double CalculatedPriority;
 
-    public DataItem(List<String> titles, String lineFromFile) {
-        //Log.i(TAG, "Starting initializer from lineFromFile");
-        //Log.i(TAG, "Received Titles: " + titles.toString());
-        //Log.i(TAG, "Received lineFromFile: " + lineFromFile);
-        String DES = "Description", PRI = "PRI", DUR = "DUR", AFT = "After",
-                DDL = "Deadline", REC = "REC", DAY = "Days", TYP = "TYP",
-                ENT = "Entered", LOC = "LOC", WEA = "WEA", EAR = "EAR",
-                LAT = "LAT", BEN = "BEN", CON = "CON", WLA = "WLA";
-
-        String[] fields = {PRI, DES, DUR, AFT, DDL, REC, DAY, TYP, ENT, LOC,
-                WEA, EAR, LAT, BEN, CON, WLA};
-
-        List<String> requiredFields = Arrays.asList(fields);
-        //Log.i(TAG, "ExpectedFields created: " + requiredFields.toString());
-
-
-        HashMap<String, String> sortedLineFromFile = new HashMap<>();
-        Scanner tabScan = null;
-        try {
-            tabScan = new Scanner(lineFromFile);
-
-            tabScan.useDelimiter(",");
-            for (Iterator<String> iterator = titles.iterator();
-                 iterator.hasNext(); ) {
-                String title = iterator.next();
-//                //Log.i(TAG, "title = " + title);
-                if (!tabScan.hasNext()) {
-                    //Log.i(TAG, "Error tabscan fell short");
-                    break;
-                }
-                String value = null;
-                try {
-                    value = tabScan.next();
-//                    //Log.i(TAG, "value obtained by line scanner: "+value);
-                } catch (Exception e) {
-                    //Log.i(TAG, "Error getting value from scanner " + e);
-                    e.printStackTrace();
-                    break;
-                }
-                if (requiredFields.contains(title)) {
-//                    //Log.i(TAG, "Title: in expectedFields " + title);
-                    try {
-                        sortedLineFromFile.put(String.valueOf(title), String.valueOf(value));
-                        //Log.i(TAG, "Put: " + title + ": " + sortedLineFromFile.get(title));
-                    } catch (Exception e) {
-                        //Log.i(TAG, "Error putting title in sortedLineFromFile " + e);
-                        e.printStackTrace();
-                    }
-//                } else {
-//                    //Log.i(TAG, "Title not in expectedFields: " + title + ": " + value);
-                }
-            }
-        } catch (Exception e) {
-            //Log.i(TAG, "Couldn't create Scanner");
-            e.printStackTrace();
-        } finally {
-            tabScan.close();
-        }
-
-        if (sortedLineFromFile.isEmpty()) {
-            //Log.i(TAG, "No line from file");
-            return;
-        }
-
-        setItemName(sortedLineFromFile.get(DES));
-        //Log.i(TAG, "ItemName: " + getItemName());
-        setDescription(sortedLineFromFile.get(DES));
-        //Log.i(TAG, "Description: " + getDescription());
-        setSubjectivePriority(sortedLineFromFile.get(PRI));
-        //Log.i(TAG, "SubjectivePriority: " +getSubjectivePriority());
-        setCategory(sortedLineFromFile.get(TYP));
-        //Log.i(TAG, "Category: " + getCategory());
-        setDuration(sortedLineFromFile.get(DUR));
-        //Log.i(TAG, "Duration: " + getDuration());
-        setAfter(sortedLineFromFile.get(AFT));
-        //Log.i(TAG, "After: " + getAfter());
-        setDeadline(sortedLineFromFile.get(DDL));
-        //Log.i(TAG, "Deadline: " + getDeadline());
-        setRecycles(sortedLineFromFile.get(REC));
-        //Log.i(TAG, "Recycle: " + getRecycles());
-        setDaysICanDoIt(sortedLineFromFile.get(DAY));
-        //Log.i(TAG, "Days I can do it: " + getDaysICanDoIt());
-        setEntered(sortedLineFromFile.get(ENT));
-        //Log.i(TAG, "Entry date " + getEntered());
-        setLocation(sortedLineFromFile.get(LOC));
-        //Log.i(TAG, "Location: " + getLocation());
-        setWeather(sortedLineFromFile.get(WEA));
-        //Log.i(TAG, "Weather: " + getWeather());
-        setEarliestTimeOfDay(sortedLineFromFile.get(EAR));
-        //Log.i(TAG, "Earliest: " + getEarliestTimeOfDay());
-        setLatestTimeOfDay(sortedLineFromFile.get(LAT));
-        //Log.i(TAG, "Latest: " + getLatestTimeOfDay());
-        setBenefit(sortedLineFromFile.get(BEN));
-        //Log.i(TAG, "Benefit: " + getBenefit());
-        setConsequence(sortedLineFromFile.get(CON));
-        //Log.i(TAG, "Consequency: " + getConsequence());
-        setWorkLoadAnalysis(sortedLineFromFile.get(WLA));
-        //Log.i(TAG, "WLA: " + getWorkLoadAnalysis());
-    }
-
     private void setWeather(String weather_String) {
         if (weather_String.isEmpty()){weather_String="0";}
         try {
@@ -460,6 +360,109 @@ public class DataItem implements Parcelable {
 
     public void setSortPosition(int sortPosition) {
         this.sortPosition = sortPosition;
+    }
+
+    public DataItem(List<String> titles, String lineFromFile) {
+        //Log.i(TAG, "Starting initializer from lineFromFile");
+        //Log.i(TAG, "Received Titles: " + titles.toString());
+        //Log.i(TAG, "Received lineFromFile: " + lineFromFile);
+        String DES = "Description", PRI = "PRI", DUR = "DUR", AFT = "After",
+                DDL = "Deadline", REC = "REC", DAY = "Days", TYP = "TYP",
+                ENT = "Entered", LOC = "LOC", WEA = "WEA", EAR = "EAR",
+                LAT = "LAT", BEN = "BEN", CON = "CON", WLA = "WLA";
+
+        String[] fields = {PRI, DES, DUR, AFT, DDL, REC, DAY, TYP, ENT, LOC,
+                WEA, EAR, LAT, BEN, CON, WLA};
+
+        List<String> requiredFields = Arrays.asList(fields);
+        //Log.i(TAG, "ExpectedFields created: " + requiredFields.toString());
+
+
+        HashMap<String, String> sortedLineFromFile = new HashMap<>();
+        Scanner tabScan = null;
+        try {
+            tabScan = new Scanner(lineFromFile);
+
+            tabScan.useDelimiter(",");
+            for (Iterator<String> iterator = titles.iterator();
+                 iterator.hasNext(); ) {
+                String title = iterator.next();
+//                //Log.i(TAG, "title = " + title);
+                if (!tabScan.hasNext()) {
+                    //Log.i(TAG, "Error tabscan fell short");
+                    break;
+                }
+                String value = null;
+                try {
+                    value = tabScan.next();
+//                    //Log.i(TAG, "value obtained by line scanner: "+value);
+                } catch (Exception e) {
+                    //Log.i(TAG, "Error getting value from scanner " + e);
+                    e.printStackTrace();
+                    break;
+                }
+                if (requiredFields.contains(title)) {
+//                    //Log.i(TAG, "Title: in expectedFields " + title);
+                    try {
+                        sortedLineFromFile.put(String.valueOf(title), String.valueOf(value));
+                        //Log.i(TAG, "Put: " + title + ": " + sortedLineFromFile.get(title));
+                    } catch (Exception e) {
+                        //Log.i(TAG, "Error putting title in sortedLineFromFile " + e);
+                        e.printStackTrace();
+                    }
+//                } else {
+//                    //Log.i(TAG, "Title not in expectedFields: " + title + ": " + value);
+                }
+            }
+        } catch (Exception e) {
+            //Log.i(TAG, "Couldn't create Scanner");
+            e.printStackTrace();
+        } finally {
+            tabScan.close();
+        }
+
+        if (sortedLineFromFile.isEmpty()) {
+            //Log.i(TAG, "No line from file");
+            return;
+        }
+        if (itemID == null) {
+            itemID = UUID.randomUUID().toString();
+        }
+
+        itemName =sortedLineFromFile.get(DES);
+        //Log.i(TAG, "ItemName: " + getItemName());
+        description=sortedLineFromFile.get(DES);
+        //Log.i(TAG, "Description: " + getDescription());
+        setSubjectivePriority(sortedLineFromFile.get(PRI));
+        //Log.i(TAG, "SubjectivePriority: " +getSubjectivePriority());
+        setCategory(sortedLineFromFile.get(TYP));
+        //Log.i(TAG, "Category: " + getCategory());
+        setDuration(sortedLineFromFile.get(DUR));
+        //Log.i(TAG, "Duration: " + getDuration());
+        setAfter(sortedLineFromFile.get(AFT));
+        //Log.i(TAG, "After: " + getAfter());
+        setDeadline(sortedLineFromFile.get(DDL));
+        //Log.i(TAG, "Deadline: " + getDeadline());
+        setRecycles(sortedLineFromFile.get(REC));
+        //Log.i(TAG, "Recycle: " + getRecycles());
+        setDaysICanDoIt(sortedLineFromFile.get(DAY));
+        //Log.i(TAG, "Days I can do it: " + getDaysICanDoIt());
+        setEntered(sortedLineFromFile.get(ENT));
+        //Log.i(TAG, "Entry date " + getEntered());
+        setLocation(sortedLineFromFile.get(LOC));
+        //Log.i(TAG, "Location: " + getLocation());
+        setWeather(sortedLineFromFile.get(WEA));
+        //Log.i(TAG, "Weather: " + getWeather());
+        setEarliestTimeOfDay(sortedLineFromFile.get(EAR));
+        //Log.i(TAG, "Earliest: " + getEarliestTimeOfDay());
+        setLatestTimeOfDay(sortedLineFromFile.get(LAT));
+        //Log.i(TAG, "Latest: " + getLatestTimeOfDay());
+        setBenefit(sortedLineFromFile.get(BEN));
+        //Log.i(TAG, "Benefit: " + getBenefit());
+        setConsequence(sortedLineFromFile.get(CON));
+        //Log.i(TAG, "Consequency: " + getConsequence());
+        setWorkLoadAnalysis(sortedLineFromFile.get(WLA));
+        //Log.i(TAG, "WLA: " + getWorkLoadAnalysis());
     }
 
     @Override
