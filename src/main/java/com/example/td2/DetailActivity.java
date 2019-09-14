@@ -58,18 +58,18 @@ public class DetailActivity extends AppCompatActivity {
         tvName.setText(item.getItemName());
         tvDescription.setText(item.getDescription());
         tvDuration.setText(item.getDuration());
-        tvAfter.setText(item.getAfter());
-        tvDeadline.setText(item.getDuration());
-        tvRecycle.setText(item.getRecycles());
-        tvSubjective.setText(String.valueOf(item.getSubjectivePriority()));
-        tvBenefit.setText(String.valueOf(item.getBenefit()));
-        tvConsequences.setText(String.valueOf(item.getConsequence()));
-        tvDaysICanDoIt.setText(item.getDaysICanDoIt());
-        tvLocation.setText(String.valueOf(item.getLocation()));
-        tvWeather.setText(String.valueOf(item.getWeather()));
-        tvEarliest.setText(item.getEarliestTimeOfDay());
-        tvLatest.setText(item.getLatestTimeOfDay());
-        tvWorkLoadAnalysis.setText(String.valueOf(item.getWorkLoadAnalysis()));
+        tvAfter.setText("After: " + item.getAfter());
+        tvDeadline.setText("Deadline: " + item.getDeadline());
+        tvRecycle.setText("Recycles: " + item.getRecycles());
+        tvSubjective.setText("PRI: " + String.valueOf(item.getSubjectivePriority()));
+        tvBenefit.setText("BEN: " + String.valueOf(item.getBenefit()));
+        tvConsequences.setText("CON: " + String.valueOf(item.getConsequence()));
+        tvDaysICanDoIt.setText("DAYS: " + item.getDaysICanDoIt());
+        tvLocation.setText("Location: " + String.valueOf(item.getLocation()));
+        tvWeather.setText("Weather: " + String.valueOf(item.getWeather()));
+        tvEarliest.setText("Earliest: " + item.getEarliestTimeOfDay());
+        tvLatest.setText("Latest: " + item.getLatestTimeOfDay());
+        tvWorkLoadAnalysis.setText("WLA " + String.valueOf(item.getWorkLoadAnalysis()));
 
         InputStream inputStream = null;
         try {

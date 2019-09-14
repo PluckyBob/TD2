@@ -1,167 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_detail"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingBottom="16dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="16dp"
-        tools:context="com.example.td2.DetailActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp"
+    tools:context="com.example.td2.DetailActivity">
 
     <ImageView
-            android:id="@+id/itemImage"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:scaleType="fitCenter"
-            app:srcCompat="@drawable/world"
-            android:contentDescription="@string/category_image" />
+        android:id="@+id/itemImage"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:contentDescription="@string/category_image"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/world" />
 
     <TextView
-            android:id="@+id/tvItemName"
-            android:layout_toEndOf="@id/itemImage"
-            android:layout_toRightOf="@id/itemImage"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_width="350dp"
-            android:layout_height="35dp"
-            android:textSize="24sp"
-            android:text="Item Name"
-            tools:ignore="HardcodedText"/>
+        android:id="@+id/tvItemName"
+        android:layout_width="350dp"
+        android:layout_height="35dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@id/itemImage"
+        android:layout_toRightOf="@id/itemImage"
+        android:text="Item Name"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText" />
 
     <TextView
-            android:id="@+id/tvDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/itemImage"
-            android:layout_marginTop="10dp"
-            android:text="Longer description"
-            tools:ignore="HardcodedText" />
+        android:id="@+id/tvDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itemImage"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="10dp"
+        android:text="Longer description"
+        tools:ignore="HardcodedText" />
 
     <TextView
-            android:id="@+id/tvDuration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvDescription"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:text="00:30"
-            android:textSize="24sp"
-            tools:ignore="HardcodedText" />
+        android:id="@+id/tvDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDescription"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="00:30"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText" />
 
     <TextView
-            android:id="@+id/tvRecycle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvDescription"
-            android:layout_toRightOf="@id/tvDuration"
-            android:layout_toEndOf="@id/tvDuration"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:text="Recycle code"
-            android:textSize="24sp"
-            tools:ignore="HardcodedText" />
+        android:id="@+id/tvRecycle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDescription"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@id/tvDuration"
+        android:layout_toRightOf="@id/tvDuration"
+        android:text="Recycle code"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText" />
 
     <TextView
-            android:id="@+id/tvSubjective"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvDescription"
-            android:layout_toRightOf="@id/tvRecycle"
-            android:layout_toEndOf="@id/tvRecycle"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:text="SP"
-            android:textSize="24sp"
-            tools:ignore="HardcodedText" />
+        android:id="@+id/tvSubjective"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDuration"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@id/tvRecycle"
+        android:layout_toRightOf="@id/tvRecycle"
+        android:text="SP"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText" />
 
     <TextView
-            android:id="@+id/tvBenefit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvDescription"
-            android:layout_toRightOf="@id/tvSubjective"
-            android:layout_toEndOf="@id/tvSubjective"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:text="BEN"
-            android:textSize="24sp"
-            tools:ignore="HardcodedText" />
+        android:id="@+id/tvBenefit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDuration"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@id/tvSubjective"
+        android:layout_toRightOf="@id/tvSubjective"
+        android:text="BEN"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText" />
 
     <TextView
-            android:id="@+id/tvConsequences"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvDescription"
-            android:layout_toRightOf="@id/tvBenefit"
-            android:layout_toEndOf="@id/tvBenefit"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:text="CON"
-            android:textSize="24sp"
-            tools:ignore="HardcodedText" />
+        android:id="@+id/tvConsequences"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDuration"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@id/tvBenefit"
+        android:layout_toRightOf="@id/tvBenefit"
+        android:text="CON"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText" />
 
     <TextView
-            android:id="@+id/tvAfter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvDuration"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:text="Restrict to after"
-            android:textSize="24sp"
-            tools:ignore="HardcodedText" />
-    <TextView
-            android:id="@+id/tvDeadline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvAfter"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:text="Restrict to before"
-            android:textSize="24sp"
-            tools:ignore="HardcodedText" />
+        android:id="@+id/tvAfter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvSubjective"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="Restrict to after"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText" />
 
     <TextView
-            android:id="@+id/tvLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvDeadline"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:text="Restrict to location"
-            android:textSize="24sp"
-            tools:ignore="HardcodedText" />
+        android:id="@+id/tvDeadline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvAfter"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="Restrict to before"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText" />
 
     <TextView
-            android:id="@+id/tvDaysICanDoIt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvLocation"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:text="Restrict to days"
-            android:textSize="24sp"
-            tools:ignore="HardcodedText" />
+        android:id="@+id/tvLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDeadline"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="Restrict to location"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/tvDaysICanDoIt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvLocation"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="Restrict to days"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText" />
 
 
     <TextView
-            android:id="@+id/tvEarliest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvDaysICanDoIt"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:text="Restrict to times later than"
-            android:textSize="24sp"
-            tools:ignore="HardcodedText" />
+        android:id="@+id/tvEarliest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvDaysICanDoIt"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="Restrict to times later than"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tvLatest"
@@ -175,36 +178,36 @@
         tools:ignore="HardcodedText" />
 
     <TextView
-            android:id="@+id/tvWeather"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvLatest"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:text="Restrict to weather"
-            android:textSize="24sp"
-            tools:ignore="HardcodedText" />
+        android:id="@+id/tvWeather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvLatest"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="Restrict to weather"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText" />
 
     <TextView
-            android:id="@+id/tvPeople"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvWeather"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:text="Restrict to presence of others"
-            android:textSize="24sp"
-            tools:ignore="HardcodedText" />
+        android:id="@+id/tvPeople"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvWeather"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="property not in use"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText" />
 
     <TextView
-            android:id="@+id/tvWorkLoadAnalysis"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvPeople"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:text="Workload analysis"
-            android:textSize="24sp"
-            tools:ignore="HardcodedText" />
+        android:id="@+id/tvWorkLoadAnalysis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvPeople"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="Workload analysis"
+        android:textSize="24sp"
+        tools:ignore="HardcodedText" />
 
 </RelativeLayout>

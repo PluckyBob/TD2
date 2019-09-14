@@ -2,6 +2,7 @@ package com.example.td2;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -85,6 +86,7 @@ public class DataItemAdapter extends RecyclerView.Adapter<DataItemAdapter.ViewHo
             default:
                 return "world.jpg";
         }
+
     }
 
     @Override

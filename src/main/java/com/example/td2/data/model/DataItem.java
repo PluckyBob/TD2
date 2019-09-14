@@ -39,7 +39,9 @@ public class DataItem implements Parcelable {
     private double CalculatedPriority;
 
     private void setWeather(String weather_String) {
-        if (weather_String.isEmpty()){weather_String="0";}
+        if (weather_String.isEmpty()) {
+            weather_String = "0";
+        }
         try {
             setLocation(Integer.parseInt(weather_String));
         } catch (NumberFormatException e) {
@@ -50,7 +52,9 @@ public class DataItem implements Parcelable {
     }
 
     private void setLocation(String location_String) {
-        if (location_String.isEmpty()){location_String="0";}
+        if (location_String.isEmpty()) {
+            location_String = "0";
+        }
         try {
             setLocation(Integer.parseInt(location_String));
         } catch (NumberFormatException e) {
@@ -61,7 +65,9 @@ public class DataItem implements Parcelable {
     }
 
     private void setCategory(String category_String) {
-        if (category_String.isEmpty()){category_String="0";}
+        if (category_String.isEmpty()) {
+            category_String = "0";
+        }
         try {
             setCategory(Integer.parseInt(category_String));
         } catch (NumberFormatException e) {
@@ -338,7 +344,7 @@ public class DataItem implements Parcelable {
             tabScan.useDelimiter(",");
             for (String title : titles) {
                 if (!tabScan.hasNext()) {
-                    if (tabScan!= null) {
+                    if (tabScan != null) {
                         tabScan.close();
                     }
                     break;
@@ -369,8 +375,8 @@ public class DataItem implements Parcelable {
             itemID = UUID.randomUUID().toString();
         }
 
-        itemName =sortedLineFromFile.get(DES);
-        description=sortedLineFromFile.get(DES);
+        itemName = sortedLineFromFile.get(DES);
+        description = sortedLineFromFile.get(DES);
         setSubjectivePriority(sortedLineFromFile.get(PRI));
         setCategory(sortedLineFromFile.get(TYP));
         setDuration(sortedLineFromFile.get(DUR));
