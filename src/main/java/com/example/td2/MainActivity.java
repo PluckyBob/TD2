@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.td2.data.model.DataItem;
 import com.example.td2.data.sample.DataFromCSV;
+import com.example.td2.data.sample.SampleDataProvider;
 import com.example.td2.utils.JSONHelper;
 
 import java.util.List;
@@ -39,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.i(TAG, "onCreate started");
+//        for (DataItem item : dataItemList){
+//            Log.i(TAG, "dataItemList item: "+ item.getItemName());
+//        }
         setContentView(R.layout.activity_main);
         if (!permissionGranted) checkPermissions();
 

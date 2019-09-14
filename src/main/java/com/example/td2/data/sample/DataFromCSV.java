@@ -1,5 +1,6 @@
 package com.example.td2.data.sample;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.td2.data.model.DataItem;
@@ -12,9 +13,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static android.content.Context.*;
+
 public class DataFromCSV {
 
-    public static final List<DataItem> dataItemList;
+    public static List<DataItem> dataItemList;
     public static final String TAG = "TAG: DataFromCSV";
 
     static {
@@ -32,43 +35,44 @@ public class DataFromCSV {
         }
 
         String lineFromFile = null;
-        DataItem dataItem;
-        ArrayList<DataItem> dataItems = new ArrayList<>();
         Log.i(TAG, "FileReader object created - creating buffered reader");
         BufferedReader bReader = new BufferedReader(in);
 //        Obtain the title row
         try {
             lineFromFile = bReader.readLine();
-            Log.i(TAG,lineFromFile);
+//            Log.i(TAG,lineFromFile);
         } catch (IOException e) {
             Log.i(TAG,"Error obtaining column titles");
             e.printStackTrace();
         }
 //        Split the title row into column titles
-        Scanner tabScan = new Scanner(lineFromFile);
-        tabScan.useDelimiter(",");
         ArrayList<String> titles = new ArrayList<>();
-        while (tabScan.hasNext()) {
-            String title = tabScan.next();
-            titles.add(title);
+        Scanner tabScan = new Scanner(lineFromFile);
+        try {
+            tabScan.useDelimiter(",");
+            while (tabScan.hasNext()) {
+                String title = tabScan.next();
+                titles.add(title);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (tabScan == null) {
+                tabScan.close();
+            }
         }
-//          Get the data rows and add to the dataItems list
+//          Get the data rows and add to the dataItemList list
         while (true) {
             try {
                 if (((lineFromFile = bReader.readLine()) == null)) break;
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Log.i(TAG,lineFromFile);
-            Log.i(TAG,"Attempt to create new DataItem from lineFromFile");
-            dataItem = new DataItem(titles, lineFromFile);
-            Log.i(TAG, "Data Item: " +dataItem.toString());
-            try {
-                dataItems.add(dataItem);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            addItem(new DataItem(titles, lineFromFile));
         }
+    }
+    private static void addItem(DataItem item) {
+        dataItemList.add(item);
     }
 }
 

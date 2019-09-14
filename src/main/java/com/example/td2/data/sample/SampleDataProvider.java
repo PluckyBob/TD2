@@ -19,32 +19,28 @@ public class SampleDataProvider {
 
     static {
         dataItemList = new ArrayList<>();
-        String CSV_FILE = "/data/data/com.example.td2/cache/todo.csv";
-//        File file = new File(CSV_FILE);
-//        Log.i(TAG,file.getAbsolutePath());
-//        Log.i(TAG,"Can read is "+file.canRead());
-        FileReader in = null;
-        try {
-            in = new FileReader(CSV_FILE);
-//            in = new FileReader(file.getAbsoluteFile());
-        } catch (FileNotFoundException e) {
-            Log.i(TAG, "File not found" + e);
-        }
-        String lineFromFile = null;
-        DataItem dataItem;
-        ArrayList<DataItem> dataItems = new ArrayList<>();
-        Log.i(TAG, "Trying instantiate Buffered reader");
-        BufferedReader bReader = new BufferedReader(in);
-
-        Log.i(TAG, "Trying to get a line from the file");
-//        Obtain the title row
-        try {
-            lineFromFile = bReader.readLine();
-            Log.i(TAG,lineFromFile);
-        } catch (IOException e) {
-            Log.i(TAG,"Error obtaining column titles");
-            e.printStackTrace();
-        }
+//        String CSV_FILE = "/data/data/com.example.td2/cache/todo.csv";
+//        FileReader in = null;
+//        try {
+//            in = new FileReader(CSV_FILE);
+//        } catch (FileNotFoundException e) {
+//            Log.i(TAG, "File not found" + e);
+//        }
+//        String lineFromFile = null;
+//        DataItem dataItem;
+//        ArrayList<DataItem> dataItems = new ArrayList<>();
+//        Log.i(TAG, "Trying instantiate Buffered reader");
+//        BufferedReader bReader = new BufferedReader(in);
+//
+//        Log.i(TAG, "Trying to get a line from the file");
+////        Obtain the title row
+//        try {
+//            lineFromFile = bReader.readLine();
+//            Log.i(TAG,lineFromFile);
+//        } catch (IOException e) {
+//            Log.i(TAG,"Error obtaining column titles");
+//            e.printStackTrace();
+//        }
 
         addItem(new DataItem(null, "Go To Work", "Go To Work", 1,
                 1, "1:00", "09/08/19 05:00", "09/08/19 05:00", null,
