@@ -24,10 +24,7 @@
         android:layout_width="350dp"
         android:layout_height="35dp"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_toEndOf="@id/itemImage"
-        android:layout_toRightOf="@id/itemImage"
         android:text="Item Name"
         android:textSize="24sp"
         tools:ignore="HardcodedText" />
@@ -38,9 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/itemImage"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_marginTop="10dp"
         android:text="Longer description"
         tools:ignore="HardcodedText" />
@@ -51,7 +46,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvDescription"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:text="00:30"
         android:textSize="24sp"
         tools:ignore="HardcodedText" />
@@ -62,9 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvDescription"
         android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_toEndOf="@id/tvDuration"
-        android:layout_toRightOf="@id/tvDuration"
         android:text="Recycle code"
         android:textSize="24sp"
         tools:ignore="HardcodedText" />
@@ -75,11 +67,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvDuration"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_toEndOf="@id/tvRecycle"
-        android:layout_toRightOf="@id/tvRecycle"
         android:text="SP"
         android:textSize="24sp"
         tools:ignore="HardcodedText" />
@@ -90,9 +79,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvDuration"
         android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_toEndOf="@id/tvSubjective"
-        android:layout_toRightOf="@id/tvSubjective"
         android:text="BEN"
         android:textSize="24sp"
         tools:ignore="HardcodedText" />
@@ -103,9 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvDuration"
         android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
         android:layout_toEndOf="@id/tvBenefit"
-        android:layout_toRightOf="@id/tvBenefit"
         android:text="CON"
         android:textSize="24sp"
         tools:ignore="HardcodedText" />
@@ -116,7 +101,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvSubjective"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:text="Restrict to after"
         android:textSize="24sp"
         tools:ignore="HardcodedText" />
@@ -127,7 +111,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvAfter"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:text="Restrict to before"
         android:textSize="24sp"
         tools:ignore="HardcodedText" />
@@ -138,7 +121,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvDeadline"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:text="Restrict to location"
         android:textSize="24sp"
         tools:ignore="HardcodedText" />
@@ -149,7 +131,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvLocation"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:text="Restrict to days"
         android:textSize="24sp"
         tools:ignore="HardcodedText" />
@@ -161,7 +142,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvDaysICanDoIt"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:text="Restrict to times later than"
         android:textSize="24sp"
         tools:ignore="HardcodedText" />
@@ -172,7 +152,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvEarliest"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:text="Restrict to times earlier than"
         android:textSize="24sp"
         tools:ignore="HardcodedText" />
@@ -183,7 +162,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvLatest"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:text="Restrict to weather"
         android:textSize="24sp"
         tools:ignore="HardcodedText" />
@@ -194,7 +172,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvWeather"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:text="property not in use"
         android:textSize="24sp"
         tools:ignore="HardcodedText" />
@@ -205,7 +182,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tvPeople"
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:text="Workload analysis"
         android:textSize="24sp"
         tools:ignore="HardcodedText" />
