@@ -16,8 +16,8 @@ import java.util.List;
 
 public class JSONHelper {
 
-    public static final String FILE_NAME = "menuitems.json";
-    public static final String TAG = "JSONHelper";
+    private static final String FILE_NAME = "menuitems.json";
+    private static final String TAG = "JSONHelper";
 
     public static boolean exportToJSON(Context context, List<DataItem> dataItemList) {
 
@@ -76,11 +76,11 @@ public class JSONHelper {
     static class DataItems {
         List<DataItem> dataItems;
 
-        public List<DataItem> getDataItems() {
+        List<DataItem> getDataItems() {
             return dataItems;
         }
 
-        public void setDataItems(List<DataItem> dataItems) {
+        void setDataItems(List<DataItem> dataItems) {
             this.dataItems = dataItems;
         }
     }

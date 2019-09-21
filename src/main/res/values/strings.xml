@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">TD2</string>
-    <string name="PlaceHoldString">String place holder</string>
     <string name="category_image">Location image</string>
     <string name="error_invalid_password">Invalid password</string>
     <string name="error_field_required">Field required</string>
@@ -8,14 +7,21 @@
     <string name="sign_in">Sign In</string>
     <string name="settings">Settings</string>
 
-    <string name="dateStatus">20/09/2019</string>
-    <string name="timeStatus">02:00</string>
-    <string name="weatherStatus">Weather</string>
-    <string name="locationStatus">Location</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="title_activity_signin">SigninActivity</string>
     <string name="Import">Import</string>
     <string name="Export">Export</string>
     <string name="After">After: %1$s.</string>
+    <string name="Deadline">Deadline: %1$s</string>
+    <string name="Recycles">Recycles: %1$s</string>
+    <string name="Priority">PRI: %1$d</string>
+    <string name="Benefit">BEN: %1$d</string>
+    <string name="Consequences">CON: %1$d</string>
+    <string name="Days">DAYS: %1$s</string>
+    <string name="Location">Location: %1$d</string>
+    <string name="weather">Weather: %1$d</string>
+    <string name="Earliest">Earliest: %1$s</string>
+    <string name="Latest">Latest: %1$s</string>
+    <string name="WLA">WLA %1$d</string>
 </resources>

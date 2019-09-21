@@ -29,10 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private static final int SIGNIN_REQUEST = 1001;
     public static final String MY_GLOBAL_PREFS = "my_global_prefs";
     private static final int REQUEST_PERMISSION_WRITE = 1002;
-    public static final String TAG = "TAG:MainActivity: ";
-    List<DataItem> dataItemList = DataFromCSV.dataItemList;
-//    List<DataItem> dataItemList = SampleDataProvider.dataItemList;
-    private SharedPreferences.OnSharedPreferenceChangeListener prefsListener;
+    private static final String TAG = "TAG:MainActivity: ";
+    private final List<DataItem> dataItemList = DataFromCSV.dataItemList;
     private boolean permissionGranted;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +52,11 @@ public class MainActivity extends AppCompatActivity {
         /*access preference status*/
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         Log.i(TAG,settings.getAll().toString());
-        prefsListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
-            @Override
-            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
-                                                  String key) {
-                Log.i(TAG, "prefs listener detected onSharedPreferenceChange " + key);
+        //                String weather = settings.getString(getString(R.string.weatherStatus), "SUNNY");
+        //    List<DataItem> dataItemList = SampleDataProvider.dataItemList;
+        SharedPreferences.OnSharedPreferenceChangeListener prefsListener = (sharedPreferences, key) -> {
+            Log.i(TAG, "prefs listener detected onSharedPreferenceChange " + key);
 //                String weather = settings.getString(getString(R.string.weatherStatus), "SUNNY");
-            }
         };
         settings.registerOnSharedPreferenceChangeListener(prefsListener);
 
@@ -125,24 +121,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /* Checks if external storage is available for read and write */
-    public boolean isExternalStorageWritable() {
+    private boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         return Environment.MEDIA_MOUNTED.equals(state);
     }
 
     /* Checks if external storage is available to at least read */
-    public boolean isExternalStorageReadable() {
+    private boolean isExternalStorageReadable() {
         String state = Environment.getExternalStorageState();
         return (Environment.MEDIA_MOUNTED.equals(state) ||
                 Environment.MEDIA_MOUNTED_READ_ONLY.equals(state));
     }
 
     // Initiate request for permissions.
-    private boolean checkPermissions() {
+    private void checkPermissions() {
         if (!isExternalStorageReadable() || !isExternalStorageWritable()) {
             Toast.makeText(this, "This app only works on devices with usable external storage",
                     Toast.LENGTH_SHORT).show();
-            return false;
+            return;
         }
 
         int permissionCheck = ContextCompat.checkSelfPermission(this,
@@ -151,9 +147,7 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_PERMISSION_WRITE);
-            return false;
         } else {
-            return true;
         }
     }
 
@@ -162,17 +156,15 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_PERMISSION_WRITE:
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    permissionGranted = true;
-                    Toast.makeText(this, "External storage permission granted",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "You must grant permission!", Toast.LENGTH_SHORT).show();
-                }
-                break;
+        if (requestCode == REQUEST_PERMISSION_WRITE) {
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                permissionGranted = true;
+                Toast.makeText(this, "External storage permission granted",
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "You must grant permission!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }

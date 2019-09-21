@@ -2,7 +2,6 @@ package com.example.td2;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,11 +19,10 @@ import java.io.InputStream;
 import java.util.List;
 
 public class DataItemAdapter extends RecyclerView.Adapter<DataItemAdapter.ViewHolder> {
-    public static final String ITEM_ID_KEY = "item_id_key";
 
     public static final String ITEM_KEY = "item_key";
-    private List<DataItem> mItems;
-    private Context mContext;
+    private final List<DataItem> mItems;
+    private final Context mContext;
 
     public DataItemAdapter(Context context, List<DataItem> items) {
         this.mContext = context;
@@ -35,8 +33,7 @@ public class DataItemAdapter extends RecyclerView.Adapter<DataItemAdapter.ViewHo
     public DataItemAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View itemView = inflater.inflate(R.layout.list_item, parent, false);
-        ViewHolder viewHolder = new ViewHolder(itemView);
-        return viewHolder;
+        return new ViewHolder(itemView);
     }
 
     @Override
@@ -45,7 +42,7 @@ public class DataItemAdapter extends RecyclerView.Adapter<DataItemAdapter.ViewHo
 
         try {
             holder.tvName.setText(item.getItemName());
-            String imageFile = getImage(item.getLocation());
+            String imageFile;
 
             imageFile = getImage(item.getLocation());
             InputStream inputStream = mContext.getAssets().open(imageFile);
@@ -55,23 +52,17 @@ public class DataItemAdapter extends RecyclerView.Adapter<DataItemAdapter.ViewHo
             e.printStackTrace();
         }
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        holder.mView.setOnClickListener(v -> {
 //               Toast.makeText(mContext, "You selected " + item.getItemName(), Toast.LENGTH_SHORT).show();
 //            String itemID = item.getItemID();
-                Intent intent = new Intent(mContext, DetailActivity.class);
-                intent.putExtra(ITEM_KEY, item);
-                mContext.startActivity(intent);
-            }
+            Intent intent = new Intent(mContext, DetailActivity.class);
+            intent.putExtra(ITEM_KEY, item);
+            mContext.startActivity(intent);
         });
 
-        holder.mView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Toast.makeText(mContext, "You long clicked" + item.getItemName(), Toast.LENGTH_SHORT).show();
-                return false;
-            }
+        holder.mView.setOnLongClickListener(v -> {
+            Toast.makeText(mContext, "You long clicked" + item.getItemName(), Toast.LENGTH_SHORT).show();
+            return false;
         });
     }
 
@@ -96,16 +87,16 @@ public class DataItemAdapter extends RecyclerView.Adapter<DataItemAdapter.ViewHo
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView tvName;
-        public ImageView imageView;
+        final TextView tvName;
+        final ImageView imageView;
 
-        public View mView;
+        final View mView;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
 
-            tvName = (TextView) itemView.findViewById(R.id.itemNameText);
-            imageView = (ImageView) itemView.findViewById(R.id.imageView);
+            tvName = itemView.findViewById(R.id.itemNameText);
+            imageView = itemView.findViewById(R.id.imageView);
             mView = itemView;
         }
     }

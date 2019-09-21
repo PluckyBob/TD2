@@ -1,19 +1,13 @@
 package com.example.td2.data.sample;
 
-import android.util.Log;
-
 import com.example.td2.data.model.DataItem;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SampleDataProvider {
+class SampleDataProvider {
 
-    public static List<DataItem> dataItemList;
+    private static final List<DataItem> dataItemList;
     public static final String TAG = "TAG:SampleDataProvider";
 //    public static Map<String, DataItem> dataItemMap;
 

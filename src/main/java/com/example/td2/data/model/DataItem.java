@@ -4,11 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.UUID;
 
@@ -142,7 +141,7 @@ public class DataItem implements Parcelable {
         return subjectivePriority;
     }
 
-    public void setSubjectivePriority(int subjectivePriority) {
+    private void setSubjectivePriority(int subjectivePriority) {
         this.subjectivePriority = subjectivePriority;
     }
 
@@ -150,7 +149,7 @@ public class DataItem implements Parcelable {
         return duration;
     }
 
-    public void setDuration(String duration) {
+    private void setDuration(String duration) {
         this.duration = duration;
     }
 
@@ -158,7 +157,7 @@ public class DataItem implements Parcelable {
         return after;
     }
 
-    public void setAfter(String after) {
+    private void setAfter(String after) {
         this.after = after;
     }
 
@@ -166,7 +165,7 @@ public class DataItem implements Parcelable {
         return deadline;
     }
 
-    public void setDeadline(String deadline) {
+    private void setDeadline(String deadline) {
         this.deadline = deadline;
     }
 
@@ -190,7 +189,7 @@ public class DataItem implements Parcelable {
         return recycles;
     }
 
-    public void setRecycles(String recycles) {
+    private void setRecycles(String recycles) {
         this.recycles = recycles;
     }
 
@@ -198,7 +197,7 @@ public class DataItem implements Parcelable {
         return daysICanDoIt;
     }
 
-    public void setDaysICanDoIt(String daysICanDoIt) {
+    private void setDaysICanDoIt(String daysICanDoIt) {
         this.daysICanDoIt = daysICanDoIt;
     }
 
@@ -206,7 +205,7 @@ public class DataItem implements Parcelable {
         return entered;
     }
 
-    public void setEntered(String entered) {
+    private void setEntered(String entered) {
         this.entered = entered;
     }
 
@@ -214,7 +213,7 @@ public class DataItem implements Parcelable {
         return location;
     }
 
-    public void setLocation(int location) {
+    private void setLocation(int location) {
         this.location = location;
     }
 
@@ -222,7 +221,7 @@ public class DataItem implements Parcelable {
         return weather;
     }
 
-    public void setWeather(int weather) {
+    private void setWeather(int weather) {
         this.weather = weather;
     }
 
@@ -230,7 +229,7 @@ public class DataItem implements Parcelable {
         return earliestTimeOfDay;
     }
 
-    public void setEarliestTimeOfDay(String earliestTimeOfDay) {
+    private void setEarliestTimeOfDay(String earliestTimeOfDay) {
         this.earliestTimeOfDay = earliestTimeOfDay;
     }
 
@@ -238,7 +237,7 @@ public class DataItem implements Parcelable {
         return latestTimeOfDay;
     }
 
-    public void setLatestTimeOfDay(String latestTimeOfDay) {
+    private void setLatestTimeOfDay(String latestTimeOfDay) {
         this.latestTimeOfDay = latestTimeOfDay;
     }
 
@@ -246,7 +245,7 @@ public class DataItem implements Parcelable {
         return benefit;
     }
 
-    public void setBenefit(int benefit) {
+    private void setBenefit(int benefit) {
         this.benefit = benefit;
     }
 
@@ -254,7 +253,7 @@ public class DataItem implements Parcelable {
         return consequence;
     }
 
-    public void setConsequence(int consequence) {
+    private void setConsequence(int consequence) {
         this.consequence = consequence;
     }
 
@@ -262,7 +261,7 @@ public class DataItem implements Parcelable {
         return helenNeeded;
     }
 
-    public void setHelenNeeded(boolean helenNeeded) {
+    private void setHelenNeeded(boolean helenNeeded) {
         this.helenNeeded = helenNeeded;
     }
 
@@ -270,7 +269,7 @@ public class DataItem implements Parcelable {
         return samNeeded;
     }
 
-    public void setSamNeeded(boolean samNeeded) {
+    private void setSamNeeded(boolean samNeeded) {
         this.samNeeded = samNeeded;
     }
 
@@ -278,7 +277,7 @@ public class DataItem implements Parcelable {
         return WorkLoadAnalysis;
     }
 
-    public void setWorkLoadAnalysis(int workLoadAnalysis) {
+    private void setWorkLoadAnalysis(int workLoadAnalysis) {
         WorkLoadAnalysis = workLoadAnalysis;
     }
 
@@ -375,7 +374,7 @@ public class DataItem implements Parcelable {
         description = sortedLineFromFile.get(DES);
         setSubjectivePriority(sortedLineFromFile.get(PRI));
         if (sortedLineFromFile.get(TYP) != null) {
-            setCategory(sortedLineFromFile.get(TYP));
+            setCategory(Objects.requireNonNull(sortedLineFromFile.get(TYP)));
         }
         setDuration(sortedLineFromFile.get(DUR));
         setAfter(sortedLineFromFile.get(AFT));
@@ -384,10 +383,10 @@ public class DataItem implements Parcelable {
         setDaysICanDoIt(sortedLineFromFile.get(DAY));
         setEntered(sortedLineFromFile.get(ENT));
         if (sortedLineFromFile.get(LOC) != null) {
-            setLocation(sortedLineFromFile.get(LOC));
+            setLocation(Objects.requireNonNull(sortedLineFromFile.get(LOC)));
         }
         if (sortedLineFromFile.get(WEA) != null) {
-            setWeather(sortedLineFromFile.get(WEA));
+            setWeather(Objects.requireNonNull(sortedLineFromFile.get(WEA)));
         }
         setEarliestTimeOfDay(sortedLineFromFile.get(EAR));
         setLatestTimeOfDay(sortedLineFromFile.get(LAT));
@@ -424,7 +423,7 @@ public class DataItem implements Parcelable {
         return category;
     }
 
-    public void setCategory(int category) {
+    private void setCategory(int category) {
         this.category = category;
     }
 
@@ -432,7 +431,7 @@ public class DataItem implements Parcelable {
         return sortPosition;
     }
 
-    public void setSortPosition(int sortPosition) {
+    private void setSortPosition(int sortPosition) {
         this.sortPosition = sortPosition;
     }
 
@@ -499,7 +498,7 @@ public class DataItem implements Parcelable {
         dest.writeDouble(this.CalculatedPriority);
     }
 
-    public DataItem(Parcel in) {
+    private DataItem(Parcel in) {
         this.itemID = in.readString();
         this.itemName = in.readString();
         this.description = in.readString();

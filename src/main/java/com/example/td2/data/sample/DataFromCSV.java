@@ -1,6 +1,5 @@
 package com.example.td2.data.sample;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.example.td2.data.model.DataItem;
@@ -13,15 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static android.content.Context.*;
-
 public class DataFromCSV {
 
-    public static List<DataItem> dataItemList;
-    public static final String TAG = "TAG: DataFromCSV";
+    public static final List<DataItem> dataItemList;
+    private static final String TAG = "TAG: DataFromCSV";
     //Could not use Context.getFileDir().getPath on a static context
     //attempted to instantiate but getPath returned an invisible path
-    public static final String CSV_FILE = "/data/data/com.example.td2/cache/todo.csv";
+    private static final String CSV_FILE = "/data/data/com.example.td2/cache/todo.csv";
 
     static {
         dataItemList = new ArrayList<>();
@@ -56,9 +53,6 @@ public class DataFromCSV {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (tabScan == null) {
-                tabScan.close();
-            }
         }
 //          Get the data rows and add to the dataItemList list
         while (true) {

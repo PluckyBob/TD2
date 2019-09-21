@@ -1,6 +1,5 @@
 package com.example.td2;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,18 +14,10 @@ import com.example.td2.data.model.DataItem;
 
 import java.util.List;
 
-public class DataItemAdapterListView extends ArrayAdapter<DataItem> {
+class DataItemAdapterListView extends ArrayAdapter<DataItem> {
 
-    List<DataItem> mDataItems;
-    LayoutInflater mInflater;
-
-    public DataItemAdapterListView(@NonNull Context context, @NonNull List<DataItem> objects) {
-        super(context,R.layout.list_item, objects);
-
-        mDataItems = objects;
-        mInflater = LayoutInflater.from(context);
-
-    }
+    private final List<DataItem> mDataItems;
+    private final LayoutInflater mInflater;
 
     @NonNull
     @Override
@@ -36,8 +27,8 @@ public class DataItemAdapterListView extends ArrayAdapter<DataItem> {
             convertView=mInflater.inflate(R.layout.list_item, parent, false);
         }
 
-        TextView tvName = (TextView) convertView.findViewById(R.id.itemNameText);
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView);
+        TextView tvName = convertView.findViewById(R.id.itemNameText);
+        ImageView imageView = convertView.findViewById(R.id.imageView);
 
         DataItem item = mDataItems.get(position);
         tvName.setText(item.getItemName());

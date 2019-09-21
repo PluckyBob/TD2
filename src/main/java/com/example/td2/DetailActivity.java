@@ -11,6 +11,7 @@ import com.example.td2.data.model.DataItem;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Objects;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class DetailActivity extends AppCompatActivity {
@@ -31,7 +32,7 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        DataItem item = getIntent().getExtras().getParcelable(DataItemAdapter.ITEM_KEY);
+        DataItem item = Objects.requireNonNull(getIntent().getExtras()).getParcelable(DataItemAdapter.ITEM_KEY);
         if (item == null) {
             throw new AssertionError("Null data item received!");
         }
@@ -59,17 +60,17 @@ public class DetailActivity extends AppCompatActivity {
         tvDescription.setText(item.getDescription());
         tvDuration.setText(item.getDuration());
         tvAfter.setText(getString(R.string.After, item.getAfter()));
-        tvDeadline.setText("Deadline: " + item.getDeadline());
-        tvRecycle.setText("Recycles: " + item.getRecycles());
-        tvSubjective.setText("PRI: " + String.valueOf(item.getSubjectivePriority()));
-        tvBenefit.setText("BEN: " + String.valueOf(item.getBenefit()));
-        tvConsequences.setText("CON: " + String.valueOf(item.getConsequence()));
-        tvDaysICanDoIt.setText("DAYS: " + item.getDaysICanDoIt());
-        tvLocation.setText("Location: " + String.valueOf(item.getLocation()));
-        tvWeather.setText("Weather: " + String.valueOf(item.getWeather()));
-        tvEarliest.setText("Earliest: " + item.getEarliestTimeOfDay());
-        tvLatest.setText("Latest: " + item.getLatestTimeOfDay());
-        tvWorkLoadAnalysis.setText("WLA " + String.valueOf(item.getWorkLoadAnalysis()));
+        tvDeadline.setText(getString(R.string.Deadline, item.getDeadline()));
+        tvRecycle.setText(getString(R.string.Recycles, item.getRecycles()));
+        tvSubjective.setText(getString(R.string.Priority, item.getSubjectivePriority()));
+        tvBenefit.setText(getString(R.string.Benefit, item.getBenefit()));
+        tvConsequences.setText(getString(R.string.Consequences, item.getConsequence()));
+        tvDaysICanDoIt.setText(getString(R.string.Days, item.getDaysICanDoIt()));
+        tvLocation.setText(getString(R.string.Location, item.getLocation()));
+        tvWeather.setText(getString(R.string.weather,item.getWeather()));
+        tvEarliest.setText(getString(R.string.Earliest, item.getEarliestTimeOfDay()));
+        tvLatest.setText(getString(R.string.Latest, item.getLatestTimeOfDay()));
+        tvWorkLoadAnalysis.setText(getString(R.string.WLA,  item.getWorkLoadAnalysis()));
 
         InputStream inputStream = null;
         try {
