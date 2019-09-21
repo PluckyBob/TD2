@@ -383,7 +383,6 @@ public class DataItem implements Parcelable {
         setRecycles(sortedLineFromFile.get(REC));
         setDaysICanDoIt(sortedLineFromFile.get(DAY));
         setEntered(sortedLineFromFile.get(ENT));
-        Log.i(TAG,"Location " +sortedLineFromFile.get(LOC));
         if (sortedLineFromFile.get(LOC) != null) {
             setLocation(sortedLineFromFile.get(LOC));
         }

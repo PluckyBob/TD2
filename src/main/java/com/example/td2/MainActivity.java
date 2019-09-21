@@ -22,7 +22,6 @@ import com.example.td2.data.model.DataItem;
 import com.example.td2.data.sample.DataFromCSV;
 import com.example.td2.utils.JSONHelper;
 
-import java.sql.Time;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i(TAG, "onCreate started");
 //        for (DataItem item : dataItemList){
 //            Log.i(TAG, "dataItemList item: "+ item.getItemName());
 //        }
@@ -55,21 +53,16 @@ public class MainActivity extends AppCompatActivity {
 
         /*access preference status*/
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        String weather = settings.getString(getString(R.string.weather_status), "SUNNY");
-        String location = settings.getString(getString(R.string.location_status), "HOME");
-        String lastEnd= settings.getString(getString(R.string.time_status), "01:00");
-        String date= settings.getString(getString(R.string.date_status), "20/09/2019");
-
+        Log.i(TAG,settings.getAll().toString());
         prefsListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
                                                   String key) {
                 Log.i(TAG, "prefs listener detected onSharedPreferenceChange " + key);
+//                String weather = settings.getString(getString(R.string.weatherStatus), "SUNNY");
             }
         };
         settings.registerOnSharedPreferenceChangeListener(prefsListener);
-        //String myMessage = "Shared preference setting access point " + grid;
-        //Log.i(UNUSED, myMessage);
 
         RecyclerView recyclerView = findViewById(R.id.rvItems);
         recyclerView.setAdapter(adapter);

@@ -58,7 +58,7 @@ public class DetailActivity extends AppCompatActivity {
         tvName.setText(item.getItemName());
         tvDescription.setText(item.getDescription());
         tvDuration.setText(item.getDuration());
-        tvAfter.setText("After: " + item.getAfter());
+        tvAfter.setText(getString(R.string.After, item.getAfter()));
         tvDeadline.setText("Deadline: " + item.getDeadline());
         tvRecycle.setText("Recycles: " + item.getRecycles());
         tvSubjective.setText("PRI: " + String.valueOf(item.getSubjectivePriority()));

@@ -5,25 +5,24 @@
         android:key="DateStatus"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:title="Date status" />
+        android:title="Date" />
     <EditTextPreference
         android:defaultValue="03:00"
         android:key="TimeStatus"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:title="Time status" />
+        android:title="Time" />
     <EditTextPreference
         android:defaultValue="Home"
         android:key="LocationStatus"
         android:persistent="true"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:textAlignment="center"
-        android:title="Location status" />
+        android:title="Location" />
     <EditTextPreference
         android:defaultValue="SUNNY"
         android:key="weatherStatus"
         android:selectAllOnFocus="true"
         android:singleLine="true"
-        android:title="Weather status" />
+        android:title="Weather" />
 </PreferenceScreen>

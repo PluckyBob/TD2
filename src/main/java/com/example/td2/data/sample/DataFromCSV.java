@@ -19,14 +19,14 @@ public class DataFromCSV {
 
     public static List<DataItem> dataItemList;
     public static final String TAG = "TAG: DataFromCSV";
+    //Could not use Context.getFileDir().getPath on a static context
+    //attempted to instantiate but getPath returned an invisible path
+    public static final String CSV_FILE = "/data/data/com.example.td2/cache/todo.csv";
 
     static {
-        Log.i(TAG, "Static initializer begins");
         dataItemList = new ArrayList<>();
-        String CSV_FILE = "/data/data/com.example.td2/cache/todo.csv";
 //      I might use File file = new File(CSV_FILE) to check file info
 //       but for now this will do
-        Log.i(TAG, "attempting to create FileReader object");
         FileReader in = null;
         try {
             in = new FileReader(CSV_FILE);
@@ -35,14 +35,13 @@ public class DataFromCSV {
         }
 
         String lineFromFile = null;
-        Log.i(TAG, "FileReader object created - creating buffered reader");
         BufferedReader bReader = new BufferedReader(in);
 //        Obtain the title row
         try {
             lineFromFile = bReader.readLine();
 //            Log.i(TAG,lineFromFile);
         } catch (IOException e) {
-            Log.i(TAG,"Error obtaining column titles");
+            Log.i(TAG, "Error obtaining column titles");
             e.printStackTrace();
         }
 //        Split the title row into column titles
@@ -71,6 +70,7 @@ public class DataFromCSV {
             addItem(new DataItem(titles, lineFromFile));
         }
     }
+
     private static void addItem(DataItem item) {
         dataItemList.add(item);
     }
