@@ -6,14 +6,14 @@ import android.preference.PreferenceFragment;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class PrefsActivity extends AppCompatActivity {
+public class StatusActivity extends AppCompatActivity {
 
-    private static final String TAG = "PrefsActivity";
+    private static final String TAG = "StatusActivity";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_prefs);
+        setContentView(R.layout.activity_status);
 
         getFragmentManager()
                 .beginTransaction()
@@ -25,7 +25,7 @@ public class PrefsActivity extends AppCompatActivity {
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.settings);
+            addPreferencesFromResource(R.xml.status);
 
         }
     }

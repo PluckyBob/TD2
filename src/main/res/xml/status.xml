@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:defaultValue="17/09/2019"
+        android:key="DateStatus"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Date status" />
+    <EditTextPreference
+        android:defaultValue="03:00"
+        android:key="TimeStatus"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Time status" />
+    <EditTextPreference
+        android:defaultValue="Home"
+        android:key="LocationStatus"
+        android:persistent="true"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:textAlignment="center"
+        android:title="Location status" />
+    <EditTextPreference
+        android:defaultValue="SUNNY"
+        android:key="weatherStatus"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="Weather status" />
+</PreferenceScreen>

@@ -4,15 +4,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
 public class DataItem implements Parcelable {
-    public static final String TAG = "TAG: DataItem ";
+    private static final String TAG = "TAG: DataItem ";
     private String itemID;
     private String itemName;
     private String description;
@@ -43,11 +44,10 @@ public class DataItem implements Parcelable {
             weather_String = "0";
         }
         try {
-            setLocation(Integer.parseInt(weather_String));
+            setWeather(Integer.parseInt(weather_String));
         } catch (NumberFormatException e) {
             e.printStackTrace();
             Log.i(TAG, "can't parse to weather from string" + weather_String + " for " + itemName);
-            ;
         }
     }
 
@@ -60,7 +60,6 @@ public class DataItem implements Parcelable {
         } catch (NumberFormatException e) {
             e.printStackTrace();
             Log.i(TAG, "can't parse to location from string" + location_String + " for " + itemName);
-            ;
         }
     }
 
@@ -73,7 +72,6 @@ public class DataItem implements Parcelable {
         } catch (NumberFormatException e) {
             e.printStackTrace();
             Log.i(TAG, "can't parse to category from string" + category_String + " for " + itemName);
-            ;
         }
     }
 
@@ -344,9 +342,7 @@ public class DataItem implements Parcelable {
             tabScan.useDelimiter(",");
             for (String title : titles) {
                 if (!tabScan.hasNext()) {
-                    if (tabScan != null) {
-                        tabScan.close();
-                    }
+                    tabScan.close();
                     break;
                 }
                 String value;
@@ -378,15 +374,22 @@ public class DataItem implements Parcelable {
         itemName = sortedLineFromFile.get(DES);
         description = sortedLineFromFile.get(DES);
         setSubjectivePriority(sortedLineFromFile.get(PRI));
-        setCategory(sortedLineFromFile.get(TYP));
+        if (sortedLineFromFile.get(TYP) != null) {
+            setCategory(sortedLineFromFile.get(TYP));
+        }
         setDuration(sortedLineFromFile.get(DUR));
         setAfter(sortedLineFromFile.get(AFT));
         setDeadline(sortedLineFromFile.get(DDL));
         setRecycles(sortedLineFromFile.get(REC));
         setDaysICanDoIt(sortedLineFromFile.get(DAY));
         setEntered(sortedLineFromFile.get(ENT));
-        setLocation(sortedLineFromFile.get(LOC));
-        setWeather(sortedLineFromFile.get(WEA));
+        Log.i(TAG,"Location " +sortedLineFromFile.get(LOC));
+        if (sortedLineFromFile.get(LOC) != null) {
+            setLocation(sortedLineFromFile.get(LOC));
+        }
+        if (sortedLineFromFile.get(WEA) != null) {
+            setWeather(sortedLineFromFile.get(WEA));
+        }
         setEarliestTimeOfDay(sortedLineFromFile.get(EAR));
         setLatestTimeOfDay(sortedLineFromFile.get(LAT));
         setBenefit(sortedLineFromFile.get(BEN));

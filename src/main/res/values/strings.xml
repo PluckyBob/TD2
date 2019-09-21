@@ -7,11 +7,18 @@
     <string name="error_invalid_email">Invalid email</string>
     <string name="sign_in">Sign In</string>
     <string name="settings">Settings</string>
-    <string name="pref_display_grid">pref_display_grid</string>
-    <string name="display_in_grid">Display in grid</string>
+<!--    <string name="pref_display_grid">pref_display_grid</string>-->
+<!--    <string name="display_in_grid">Display in grid</string>-->
+
+    <string name="date_status">20/09/2019</string>
+    <string name="time_status">02:00</string>
+    <string name="weather_status">Weather</string>
+    <string name="location_status">Location</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="title_activity_signin">SigninActivity</string>
     <string name="Import">Import</string>
     <string name="Export">Export</string>
+    <string name="dry">DRY</string>
+    <string name="home">HOME</string>
 </resources>

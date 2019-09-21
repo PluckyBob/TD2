@@ -20,18 +20,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.td2.data.model.DataItem;
 import com.example.td2.data.sample.DataFromCSV;
-import com.example.td2.data.sample.SampleDataProvider;
 import com.example.td2.utils.JSONHelper;
 
+import java.sql.Time;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private static final int SIGNIN_REQUEST = 1001;
     public static final String MY_GLOBAL_PREFS = "my_global_prefs";
-    private static final String UNUSED = "Unused";
     private static final int REQUEST_PERMISSION_WRITE = 1002;
-    public static final String TAG = "TAG:MainActivity";
+    public static final String TAG = "TAG:MainActivity: ";
     List<DataItem> dataItemList = DataFromCSV.dataItemList;
 //    List<DataItem> dataItemList = SampleDataProvider.dataItemList;
     private SharedPreferences.OnSharedPreferenceChangeListener prefsListener;
@@ -54,14 +53,18 @@ public class MainActivity extends AppCompatActivity {
 
         DataItemAdapter adapter = new DataItemAdapter(this, dataItemList);
 
-        /*access preference settings*/
+        /*access preference status*/
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean grid = settings.getBoolean(getString(R.string.pref_display_grid), false);
+        String weather = settings.getString(getString(R.string.weather_status), "SUNNY");
+        String location = settings.getString(getString(R.string.location_status), "HOME");
+        String lastEnd= settings.getString(getString(R.string.time_status), "01:00");
+        String date= settings.getString(getString(R.string.date_status), "20/09/2019");
+
         prefsListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
             @Override
             public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
                                                   String key) {
-                Log.i(UNUSED, "prefs listener detected onSharedPreferenceChange " + key);
+                Log.i(TAG, "prefs listener detected onSharedPreferenceChange " + key);
             }
         };
         settings.registerOnSharedPreferenceChangeListener(prefsListener);
@@ -86,8 +89,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivityForResult(intent, SIGNIN_REQUEST);
                 return true;
             case R.id.action_settings:
-                // Show the settings screen
-                Intent SettingsIntent = new Intent(this, PrefsActivity.class);
+                // Show the status screen
+                Intent SettingsIntent = new Intent(this, StatusActivity.class);
                 startActivity(SettingsIntent);
                 return true;
             case R.id.action_export:
