@@ -373,7 +373,7 @@ public class DataItem implements Parcelable {
         }
 
         itemName = sortedLineFromFile.get(DES);
-        description = sortedLineFromFile.get(DES);
+        description = "TDF " + sortedLineFromFile.get(DES);
         setSubjectivePriority(sortedLineFromFile.get(PRI));
         if (sortedLineFromFile.get(TYP) != null) {
             setCategory(Objects.requireNonNull(sortedLineFromFile.get(TYP)));

@@ -21,7 +21,7 @@ class SampleDataProvider {
 //            Log.i(TAG, "File not found" + e);
 //        }
 //        String lineFromFile = null;
-//        DataItem dataItem;
+//        DataItem dataItemList;
 //        ArrayList<DataItem> dataItems = new ArrayList<>();
 //        Log.i(TAG, "Trying instantiate Buffered reader");
 //        BufferedReader bReader = new BufferedReader(in);

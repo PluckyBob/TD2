@@ -19,7 +19,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.td2.data.model.DataItem;
-import com.example.td2.data.sample.DataFromCSV;
+import com.example.td2.data.sample.DataFromJSON;
+import com.example.td2.data.sample.DataFromTDF;
 import com.example.td2.utils.JSONHelper;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String MY_GLOBAL_PREFS = "my_global_prefs";
     private static final int REQUEST_PERMISSION_WRITE = 1002;
     private static final String TAG = "TAG:MainActivity: ";
-    private final List<DataItem> dataItemList = DataFromCSV.dataItemList;
+    private List<DataItem> dataItemList;// = DataFromJSON.dataItemList;
     private boolean permissionGranted;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +47,13 @@ public class MainActivity extends AppCompatActivity {
 //                return o1.getItemName().compareTo(o2.getItemName());
 //            }
 //        });
-
+        DataFromJSON fromJSON = new DataFromJSON(this);
+        dataItemList = fromJSON.dataItemList;
         DataItemAdapter adapter = new DataItemAdapter(this, dataItemList);
 
         /*access preference status*/
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        Log.i(TAG,settings.getAll().toString());
+        Log.i(TAG, settings.getAll().toString());
         //                String weather = settings.getString(getString(R.string.weatherStatus), "SUNNY");
         //    List<DataItem> dataItemList = SampleDataProvider.dataItemList;
         SharedPreferences.OnSharedPreferenceChangeListener prefsListener = (sharedPreferences, key) -> {
@@ -92,10 +94,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_import:
                 //this will be getting data from csv
-                List<DataItem> dataItems = JSONHelper.importFromJSON(this);
-                if (dataItems != null) {
+                DataFromTDF fromTDF = new DataFromTDF(this);
+                List<DataItem> dataItemList = fromTDF.dataItemList;
+                if (dataItemList != null) {
                     for (DataItem dataitem :
-                            dataItems) {
+                            dataItemList) {
                         Log.i(TAG, "onOptionsItemSelected: " + dataitem.getItemName());
                     }
                 } else {
