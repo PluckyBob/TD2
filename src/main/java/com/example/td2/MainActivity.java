@@ -92,8 +92,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "Export failed", Toast.LENGTH_SHORT).show();
                 }
                 return true;
-            case R.id.action_import:
-                //this will be getting data from csv
+            case R.id.action_import_TDF:
+                //this will be getting data from TDF
                 DataFromTDF fromTDF = new DataFromTDF(this);
                 List<DataItem> dataItemList = fromTDF.dataItemList;
                 if (dataItemList != null) {
@@ -102,6 +102,16 @@ public class MainActivity extends AppCompatActivity {
                         Log.i(TAG, "onOptionsItemSelected: " + dataitem.getItemName());
                     }
                 } else {
+                    Log.i(TAG, "No data items to display!");
+                }
+            case R.id.action_import_JSON:
+                //this will be getting data from JSON
+                dataItemList = JSONHelper.importFromJSON(this);
+                if(dataItemList !=null) {
+                    for (DataItem dataitem : dataItemList) {
+                        Log.i(TAG, "onOptionsItemSelected: " + dataitem.getItemName());
+                    }
+                }else{
                     Log.i(TAG, "No data items to display!");
                 }
         }

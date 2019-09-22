@@ -10,8 +10,9 @@
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="title_activity_signin">SigninActivity</string>
-    <string name="Import">Import</string>
-    <string name="Export">Export</string>
+    <string name="Import_TDF">Import TDF</string>
+    <string name="Import_JSON">Import JSON</string>
+    <string name="Export_JSON">Export JSON</string>
     <string name="After">After: %1$s.</string>
     <string name="Deadline">Deadline: %1$s</string>
     <string name="Recycles">Recycles: %1$s</string>

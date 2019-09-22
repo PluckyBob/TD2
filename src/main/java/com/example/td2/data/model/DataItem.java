@@ -372,8 +372,8 @@ public class DataItem implements Parcelable {
             itemID = UUID.randomUUID().toString();
         }
 
-        itemName = sortedLineFromFile.get(DES);
-        description = "TDF " + sortedLineFromFile.get(DES);
+        itemName = "TDF " + sortedLineFromFile.get(DES);
+        description = sortedLineFromFile.get(DES);
         setSubjectivePriority(sortedLineFromFile.get(PRI));
         if (sortedLineFromFile.get(TYP) != null) {
             setCategory(Objects.requireNonNull(sortedLineFromFile.get(TYP)));
