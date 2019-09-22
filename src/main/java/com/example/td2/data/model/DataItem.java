@@ -338,7 +338,7 @@ public class DataItem implements Parcelable {
         List<String> requiredFields = Arrays.asList(fields);
         HashMap<String, String> sortedLineFromFile = new HashMap<>();
         try (Scanner tabScan = new Scanner(lineFromFile)) {
-            tabScan.useDelimiter(",");
+            tabScan.useDelimiter("\t");
             for (String title : titles) {
                 if (!tabScan.hasNext()) {
                     tabScan.close();
@@ -347,7 +347,9 @@ public class DataItem implements Parcelable {
                 String value;
                 try {
                     value = tabScan.next();
+                    Log.i(TAG, "Value: "+value);
                 } catch (Exception e) {
+                    Log.i(TAG, "Value not obtained from tabscan.next: "+e);
                     e.printStackTrace();
                     break;
                 }

@@ -18,7 +18,7 @@ public class DataFromCSV {
     private static final String TAG = "TAG: DataFromCSV";
     //Could not use Context.getFileDir().getPath on a static context
     //attempted to instantiate but getPath returned an invisible path
-    private static final String CSV_FILE = "/data/data/com.example.td2/cache/todo.csv";
+    private static final String CSV_FILE = "/data/data/com.example.td2/cache/todo.txt";
 
     static {
         dataItemList = new ArrayList<>();
@@ -45,7 +45,7 @@ public class DataFromCSV {
         ArrayList<String> titles = new ArrayList<>();
         Scanner tabScan = new Scanner(lineFromFile);
         try {
-            tabScan.useDelimiter(",");
+            tabScan.useDelimiter("\t");
             while (tabScan.hasNext()) {
                 String title = tabScan.next();
                 titles.add(title);
@@ -59,13 +59,16 @@ public class DataFromCSV {
             try {
                 if (((lineFromFile = bReader.readLine()) == null)) break;
             } catch (IOException e) {
+                Log.i(TAG, "Error obtaining lineFromFile" +e);
                 e.printStackTrace();
             }
+//            Log.i(TAG, lineFromFile);
             addItem(new DataItem(titles, lineFromFile));
         }
     }
 
     private static void addItem(DataItem item) {
+//        Log.i(TAG,item.toString());
         dataItemList.add(item);
     }
 }

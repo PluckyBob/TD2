@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return true;
             case R.id.action_import:
+                //this will be getting data from csv
                 List<DataItem> dataItems = JSONHelper.importFromJSON(this);
                 if (dataItems != null) {
                     for (DataItem dataitem :
