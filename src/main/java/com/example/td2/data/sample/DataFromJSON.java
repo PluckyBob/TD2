@@ -9,9 +9,9 @@ import com.example.td2.utils.JSONHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataFromJSON {
-    public static final String TAG = "TAG:DataFromJason";
-    public static List<DataItem> dataItemList = new ArrayList<>();
+class DataFromJSON {
+    private static final String TAG = "TAG:DataFromJason";
+    private static List<DataItem> dataItemList = new ArrayList<>();
 
     public DataFromJSON(Context mContext) {
         dataItemList = JSONHelper.importFromJSON(mContext);
