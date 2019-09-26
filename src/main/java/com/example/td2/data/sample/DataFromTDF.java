@@ -53,7 +53,6 @@ public class DataFromTDF {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        } finally {
         }
 //          Get the data rows and add to the dataItemList list
         while (true) {

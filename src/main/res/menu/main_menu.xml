@@ -7,19 +7,23 @@
         android:title="@string/sign_in"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_status"
         android:title="@string/settings"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_import_TDF"
-        android:title="@string/Import_TDF"
+        android:title="@string/import_tdf"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_export_TDF"
+        android:title="@string/export_json"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_import_JSON"
-        android:title="@string/Import_TDF"
+        android:title="@string/import_json"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_export"
-        android:title="@string/Export_JSON"
+        android:id="@+id/action_export_JSON"
+        android:title="@string/export_json"
         app:showAsAction="ifRoom" />
 </menu>

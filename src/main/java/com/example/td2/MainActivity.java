@@ -19,7 +19,6 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.td2.data.model.DataItem;
-import com.example.td2.data.sample.DataFromJSON;
 import com.example.td2.data.sample.DataFromTDF;
 import com.example.td2.utils.JSONHelper;
 
@@ -29,16 +28,15 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int SIGNIN_REQUEST = 1001;
     public static final String MY_GLOBAL_PREFS = "my_global_prefs";
+    private static final String UNUSED = "Unused";
     private static final int REQUEST_PERMISSION_WRITE = 1002;
-    private static final String TAG = "TAG:MainActivity: ";
-    private List<DataItem> dataItemList;// = DataFromJSON.dataItemList;
+    private static final String TAG = "TAG:MainActivity";
+    private List<DataItem> dataItemList;
     private boolean permissionGranted;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        for (DataItem item : dataItemList){
-//            Log.i(TAG, "dataItemList item: "+ item.getItemName());
-//        }
+        Log.i(TAG, "onCreate started");
         setContentView(R.layout.activity_main);
         if (!permissionGranted) checkPermissions();
 
@@ -47,20 +45,22 @@ public class MainActivity extends AppCompatActivity {
 //                return o1.getItemName().compareTo(o2.getItemName());
 //            }
 //        });
-        DataFromJSON fromJSON = new DataFromJSON(this);
-        dataItemList = fromJSON.dataItemList;
+
         DataItemAdapter adapter = new DataItemAdapter(this, dataItemList);
 
-        /*access preference status*/
+        /*access preference settings*/
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        Log.i(TAG, settings.getAll().toString());
-        //                String weather = settings.getString(getString(R.string.weatherStatus), "SUNNY");
         //    List<DataItem> dataItemList = SampleDataProvider.dataItemList;
-        SharedPreferences.OnSharedPreferenceChangeListener prefsListener = (sharedPreferences, key) -> {
-            Log.i(TAG, "prefs listener detected onSharedPreferenceChange " + key);
-//                String weather = settings.getString(getString(R.string.weatherStatus), "SUNNY");
+        SharedPreferences.OnSharedPreferenceChangeListener prefsListener = new SharedPreferences.OnSharedPreferenceChangeListener() {
+            @Override
+            public void onSharedPreferenceChanged(SharedPreferences sharedPreferences,
+                                                  String key) {
+                Log.i(UNUSED, "prefs listener detected onSharedPreferenceChange " + key);
+            }
         };
         settings.registerOnSharedPreferenceChangeListener(prefsListener);
+        //String myMessage = "Shared preference setting access point " + grid;
+        //Log.i(UNUSED, myMessage);
 
         RecyclerView recyclerView = findViewById(R.id.rvItems);
         recyclerView.setAdapter(adapter);
@@ -79,12 +79,12 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, SigninActivity.class);
                 startActivityForResult(intent, SIGNIN_REQUEST);
                 return true;
-            case R.id.action_settings:
-                // Show the status screen
+            case R.id.action_status:
+                // Show the settings screen
                 Intent SettingsIntent = new Intent(this, StatusActivity.class);
                 startActivity(SettingsIntent);
                 return true;
-            case R.id.action_export:
+            case R.id.action_export_JSON:
                 boolean result = JSONHelper.exportToJSON(this, dataItemList);
                 if (result) {
                     Toast.makeText(this, "Data Exported", Toast.LENGTH_SHORT).show();
@@ -92,10 +92,8 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "Export failed", Toast.LENGTH_SHORT).show();
                 }
                 return true;
-            case R.id.action_import_TDF:
-                //this will be getting data from TDF
-                DataFromTDF fromTDF = new DataFromTDF(this);
-                List<DataItem> dataItemList = fromTDF.dataItemList;
+            case R.id.action_import_JSON:
+                dataItemList = JSONHelper.importFromJSON(this);
                 if (dataItemList != null) {
                     for (DataItem dataitem :
                             dataItemList) {
@@ -104,14 +102,14 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     Log.i(TAG, "No data items to display!");
                 }
-            case R.id.action_import_JSON:
-                //this will be getting data from JSON
-                dataItemList = JSONHelper.importFromJSON(this);
-                if(dataItemList !=null) {
-                    for (DataItem dataitem : dataItemList) {
+            case R.id.action_import_TDF:
+                dataItemList = DataFromTDF.dataItemList;
+                if (dataItemList != null) {
+                    for (DataItem dataitem :
+                            dataItemList) {
                         Log.i(TAG, "onOptionsItemSelected: " + dataitem.getItemName());
                     }
-                }else{
+                } else {
                     Log.i(TAG, "No data items to display!");
                 }
         }
@@ -148,11 +146,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Initiate request for permissions.
-    private void checkPermissions() {
+    private boolean checkPermissions() {
         if (!isExternalStorageReadable() || !isExternalStorageWritable()) {
             Toast.makeText(this, "This app only works on devices with usable external storage",
                     Toast.LENGTH_SHORT).show();
-            return;
+            return false;
         }
 
         int permissionCheck = ContextCompat.checkSelfPermission(this,
@@ -161,7 +159,9 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                     REQUEST_PERMISSION_WRITE);
+            return false;
         } else {
+            return true;
         }
     }
 
@@ -170,15 +170,17 @@ public class MainActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_PERMISSION_WRITE) {
-            if (grantResults.length > 0
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                permissionGranted = true;
-                Toast.makeText(this, "External storage permission granted",
-                        Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "You must grant permission!", Toast.LENGTH_SHORT).show();
-            }
+        switch (requestCode) {
+            case REQUEST_PERMISSION_WRITE:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    permissionGranted = true;
+                    Toast.makeText(this, "External storage permission granted",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "You must grant permission!", Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
     }
 }

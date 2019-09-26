@@ -17,7 +17,7 @@ public class StatusActivity extends AppCompatActivity {
 
         getFragmentManager()
                 .beginTransaction()
-                .add(R.id.prefs_content,new SettingsFragment())
+                .add(R.id.prefs_content, new SettingsFragment())
                 .commit();
     }
 
