@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Database acquired", Toast.LENGTH_SHORT).show();
         Log.i(TAG, "Database acquired");
 
-        DataFromJSON fromJSON = new DataFromJSON(this);
+        DataFromJSON fromJSON = new DataFromJSON( this);
         dataItemList = DataFromJSON.dataItemList;
         DataItemAdapter adapter = new DataItemAdapter(this, dataItemList);
 
@@ -102,12 +102,12 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, SigninActivity.class);
                 startActivityForResult(intent, SIGNIN_REQUEST);
                 return true;
-            case R.id.action_settings:
+            case R.id.action_status:
                 // Show the status screen
                 Intent SettingsIntent = new Intent(this, StatusActivity.class);
                 startActivity(SettingsIntent);
                 return true;
-            case R.id.action_export:
+            case R.id.action_export_JSON:
                 boolean result = JSONHelper.exportToJSON(this, dataItemList);
                 if (result) {
                     Toast.makeText(this, "Data Exported", Toast.LENGTH_SHORT).show();

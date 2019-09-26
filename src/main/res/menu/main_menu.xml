@@ -8,7 +8,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_status"
-        android:title="@string/settings"
+        android:title="@string/status"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_import_TDF"
@@ -16,7 +16,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_export_TDF"
-        android:title="@string/export_json"
+        android:title="@string/export_TDF"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_import_JSON"

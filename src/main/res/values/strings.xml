@@ -5,7 +5,7 @@
     <string name="error_field_required">Field required</string>
     <string name="error_invalid_email">Invalid email</string>
     <string name="sign_in">Sign In</string>
-    <string name="settings">Settings</string>
+    <string name="status">Status</string>
 
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -22,7 +22,8 @@
     <string name="Earliest">Earliest: %1$s</string>
     <string name="Latest">Latest: %1$s</string>
     <string name="WLA">WLA %1$d</string>
-    <string name="import_tdf">Import_TDF</string>
-    <string name="import_json">Import_JSON</string>
-    <string name="export_json">Export_JSON</string>
+    <string name="import_tdf">Import TDF</string>
+    <string name="import_json">Import JSON</string>
+    <string name="export_json">Export JSON</string>
+    <string name="export_TDF">ExportTDF</string>
 </resources>
