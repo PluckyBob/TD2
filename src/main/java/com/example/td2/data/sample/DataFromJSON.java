@@ -21,10 +21,8 @@ public class DataFromJSON {
                     dataItemList) {
                 Log.i(TAG, "onOptionsItemSelected: " + dataitem.getItemName());
             }
-        } else
-
-        {
-            Log.i(TAG, "No data items to display!");
+        } else{
+            Log.i(TAG, "No data items in dataItemList!");
         }
     }
 }

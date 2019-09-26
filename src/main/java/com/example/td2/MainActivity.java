@@ -4,6 +4,8 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -18,6 +20,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.td2.data.database.DBHelper;
+import com.example.td2.data.database.DataSource;
 import com.example.td2.data.model.DataItem;
 import com.example.td2.data.sample.DataFromJSON;
 import com.example.td2.data.sample.DataFromTDF;
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "TAG:MainActivity: ";
     private List<DataItem> dataItemList;// = DataFromJSON.dataItemList;
     private boolean permissionGranted;
+    DataSource mDataSource;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +52,14 @@ public class MainActivity extends AppCompatActivity {
 //                return o1.getItemName().compareTo(o2.getItemName());
 //            }
 //        });
+        mDataSource = new DataSource(this);
+        mDataSource.open();
+
+        Toast.makeText(this, "Database acquired", Toast.LENGTH_SHORT).show();
+        Log.i(TAG, "Database acquired");
+
         DataFromJSON fromJSON = new DataFromJSON(this);
-        dataItemList = fromJSON.dataItemList;
+        dataItemList = DataFromJSON.dataItemList;
         DataItemAdapter adapter = new DataItemAdapter(this, dataItemList);
 
         /*access preference status*/
@@ -64,6 +75,18 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.rvItems);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mDataSource.close();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mDataSource.open();
     }
 
     @Override
@@ -107,11 +130,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_import_JSON:
                 //this will be getting data from JSON
                 dataItemList = JSONHelper.importFromJSON(this);
-                if(dataItemList !=null) {
+                if (dataItemList != null) {
                     for (DataItem dataitem : dataItemList) {
                         Log.i(TAG, "onOptionsItemSelected: " + dataitem.getItemName());
                     }
-                }else{
+                } else {
                     Log.i(TAG, "No data items to display!");
                 }
         }

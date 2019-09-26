@@ -21,13 +21,13 @@ public class DataFromTDF {
     public DataFromTDF(Context mContext) {
         //Could not use Context.getFileDir().getPath on a static context
         //attempted to instantiate but getPath returned an invisible path
-        String CSV_FILE = "/data/data/com.example.td2/cache/todo.txt";
+        String TDF_FILE = "/data/data/com.example.td2/cache/todo.txt";
 
-        //      I might use File file = new File(CSV_FILE) to check file info
+        //      I might use File file = new File(TDF_FILE) to check file info
 //       but for now this will do
         FileReader in = null;
         try {
-            in = new FileReader(CSV_FILE);
+            in = new FileReader(TDF_FILE);
         } catch (FileNotFoundException e) {
             Log.i(TAG, "File not found" + e);
         }

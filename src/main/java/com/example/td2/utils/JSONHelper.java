@@ -32,7 +32,7 @@ public class JSONHelper {
         Log.i(TAG, "Export to JSON " + jsonString);
 
         FileOutputStream fileOutputStream = null;
-        File file = new File(Environment.getExternalStorageDirectory(), FILE_NAME);
+        File file = new File(Environment.getExternalStorageDirectory(),FILE_NAME);
 
         try {
             fileOutputStream = new FileOutputStream(file);
@@ -54,12 +54,14 @@ public class JSONHelper {
 
     public static List<DataItem> importFromJSON(Context context) {
         FileReader reader = null;
-        DataItems dataItems = new DataItems();
         try {
-            File file = new File(Environment.getExternalStorageDirectory(), FILE_NAME);
+//            File file = new File("/sdcard/menuitems.json");
+            File file = new File(Environment.getExternalStorageDirectory(),FILE_NAME);
+            Log.i(TAG, "file exists = "+ file.exists());
             reader = new FileReader(file);
             Gson gson = new Gson();
-            dataItems = gson.fromJson(reader, DataItems.class);
+            DataItems dataItems = gson.fromJson(reader, DataItems.class);
+            return dataItems.getDataItems();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {
@@ -82,6 +84,10 @@ public class JSONHelper {
             reader = new InputStreamReader(inputStream);
             Gson gson = new Gson();
             DataItems dataItems = gson.fromJson(reader, DataItems.class);
+            for (DataItem dataItem : dataItems.getDataItems()) {
+                Log.i(TAG, dataItem.toString());
+            }
+
             return dataItems.getDataItems();
         } finally {
             if (reader != null) {

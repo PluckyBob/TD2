@@ -16,8 +16,6 @@ public class DataItem implements Parcelable {
     private String itemID;
     private String itemName;
     private String description;
-    private int subjectivePriority;
-    private int category;
     private String duration;
     private String after;
     private String deadline;
@@ -26,17 +24,19 @@ public class DataItem implements Parcelable {
     private String recycles;
     private String daysICanDoIt;
     private String entered;
-    private int location;
-    private int weather;
     private String earliestTimeOfDay;
     private String latestTimeOfDay;
+    private int subjectivePriority;
+    private int category;
+    private int location;
+    private int weather;
     private int benefit;
     private int consequence;
-    private boolean helenNeeded;
-    private boolean samNeeded;
     private int WorkLoadAnalysis;
     private int sortPosition;
     private double CalculatedPriority;
+    private boolean samNeeded;
+    private boolean helenNeeded;
 
     private void setWeather(String weather_String) {
         if (weather_String.isEmpty()) {
