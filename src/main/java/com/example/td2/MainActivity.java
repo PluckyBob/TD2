@@ -4,8 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -27,40 +26,54 @@ import com.example.td2.data.sample.DataFromJSON;
 import com.example.td2.data.sample.DataFromTDF;
 import com.example.td2.utils.JSONHelper;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "TAG:MainActivity: ";
     private static final int SIGNIN_REQUEST = 1001;
     public static final String MY_GLOBAL_PREFS = "my_global_prefs";
     private static final int REQUEST_PERMISSION_WRITE = 1002;
-    private static final String TAG = "TAG:MainActivity: ";
     private List<DataItem> dataItemList;// = DataFromJSON.dataItemList;
     private boolean permissionGranted;
     DataSource mDataSource;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        for (DataItem item : dataItemList){
-//            Log.i(TAG, "dataItemList item: "+ item.getItemName());
-//        }
+
         setContentView(R.layout.activity_main);
+        Log.i(TAG, "onCreate");
+        //GET THE DATA ITEM LIST
         if (!permissionGranted) checkPermissions();
-
-//        Collections.sort(dataItemList, new Comparator<DataItem>() {
-//            public int compare(DataItem o1, DataItem o2) {
-//                return o1.getItemName().compareTo(o2.getItemName());
-//            }
-//        });
-        mDataSource = new DataSource(this);
-        mDataSource.open();
-
-        Toast.makeText(this, "Database acquired", Toast.LENGTH_SHORT).show();
-        Log.i(TAG, "Database acquired");
-
-        DataFromJSON fromJSON = new DataFromJSON( this);
+        DataFromJSON fromJSON = new DataFromJSON(this);
         dataItemList = DataFromJSON.dataItemList;
         DataItemAdapter adapter = new DataItemAdapter(this, dataItemList);
+
+        mDataSource = new DataSource(this);
+        mDataSource.open();
+        long numItems = mDataSource.getDataItemsCount();
+        if (numItems == 0) {
+            for (DataItem item : dataItemList) {
+                try {
+                    mDataSource.createItem(item);
+                } catch (SQLiteException e) {
+                    e.printStackTrace();
+                }
+            }
+            Toast.makeText(this, "Database Inserted " + numItems, Toast.LENGTH_LONG).show();
+            Log.i(TAG, "Database inserted " + mDataSource.getDataItemsCount());
+        } else {
+            Toast.makeText(this, "Database already Inserted", Toast.LENGTH_LONG).show();
+            Log.i(TAG, "Database already inserted");
+        }
+        Log.i(TAG, "Database acquired");
+
+        Collections.sort(dataItemList, (o1, o2) ->
+                o1.getItemName().compareTo(o2.getItemName()));
+
+
 
         /*access preference status*/
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
@@ -110,9 +123,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_export_JSON:
                 boolean result = JSONHelper.exportToJSON(this, dataItemList);
                 if (result) {
-                    Toast.makeText(this, "Data Exported", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Data Exported", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(this, "Export failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Export failed", Toast.LENGTH_LONG).show();
                 }
                 return true;
             case R.id.action_import_TDF:
@@ -147,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (resultCode == RESULT_OK && requestCode == SIGNIN_REQUEST) {
             String email = data.getStringExtra(SigninActivity.EMAIL_KEY);
-            Toast.makeText(this, "You signed in as " + email, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "You signed in as " + email, Toast.LENGTH_LONG).show();
 
             SharedPreferences.Editor editor =
                     getSharedPreferences(MY_GLOBAL_PREFS, MODE_PRIVATE).edit();
@@ -174,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
     private void checkPermissions() {
         if (!isExternalStorageReadable() || !isExternalStorageWritable()) {
             Toast.makeText(this, "This app only works on devices with usable external storage",
-                    Toast.LENGTH_SHORT).show();
+                    Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -198,9 +211,9 @@ public class MainActivity extends AppCompatActivity {
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 permissionGranted = true;
                 Toast.makeText(this, "External storage permission granted",
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "You must grant permission!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "You must grant permission!", Toast.LENGTH_LONG).show();
             }
         }
     }

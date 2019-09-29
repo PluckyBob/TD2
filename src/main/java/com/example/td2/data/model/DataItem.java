@@ -1,7 +1,11 @@
 package com.example.td2.data.model;
 
+import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
+
+import com.example.td2.data.database.ItemsTable;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -22,9 +26,10 @@ public class DataItem implements Parcelable {
     private String finishes;
     private String recycles;
     private String daysICanDoIt;
-    private String entered;
+    private String dateEntered;
     private String earliestTimeOfDay;
     private String latestTimeOfDay;
+    private String peopleNeeded;
     private int subjectivePriority;
     private int category;
     private int location;
@@ -34,8 +39,6 @@ public class DataItem implements Parcelable {
     private int WorkLoadAnalysis;
     private int sortPosition;
     private double CalculatedPriority;
-    private boolean samNeeded;
-    private boolean helenNeeded;
 
     public DataItem(List<String> titles, String lineFromFile) {
         //Log.i(TAG, "Starting initializer from lineFromFile");
@@ -93,7 +96,9 @@ public class DataItem implements Parcelable {
             //Log.i(TAG, "Couldn't create Scanner");
             e.printStackTrace();
         } finally {
-            tabScan.close();
+            if (tabScan != null) {
+                tabScan.close();
+            }
         }
 
         if (sortedLineFromFile.isEmpty()) {
@@ -138,7 +143,9 @@ public class DataItem implements Parcelable {
     }
 
     private void setWeather(String weather_String) {
-        if (weather_String.isEmpty()){weather_String="0";}
+        if (weather_String.isEmpty()) {
+            weather_String = "0";
+        }
         try {
             setLocation(Integer.parseInt(weather_String));
         } catch (NumberFormatException e) {
@@ -148,22 +155,26 @@ public class DataItem implements Parcelable {
     }
 
     private void setLocation(String location_String) {
-        if (location_String.isEmpty()){location_String="0";}
+        if (location_String.isEmpty()) {
+            location_String = "0";
+        }
         try {
             setLocation(Integer.parseInt(location_String));
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            //Log.i(TAG, "can't parse to location from string" + location_String + " for " + itemName);
+            Log.i(TAG, "can't parse to location from string" + location_String + " for " + itemName);
         }
     }
 
     private void setCategory(String category_String) {
-        if (category_String.isEmpty()){category_String="0";}
+        if (category_String.isEmpty()) {
+            category_String = "0";
+        }
         try {
             setCategory(Integer.parseInt(category_String));
         } catch (NumberFormatException e) {
             e.printStackTrace();
-            //Log.i(TAG, "can't parse to category from string" + category_String + " for " + itemName);
+            Log.i(TAG, "can't parse to category from string" + category_String + " for " + itemName);
         }
     }
 
@@ -185,22 +196,16 @@ public class DataItem implements Parcelable {
         }
     }
 
-    private void setSamNeeded(String next) {
-        try {
-            boolean localBool = Boolean.parseBoolean(next);
-            setSamNeeded(localBool);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
+    private void setPeopleNeeded(String next) {
+        if (this.peopleNeeded == null) {
+            this.peopleNeeded = next;
+        } else {
+            this.peopleNeeded = this.peopleNeeded + ", " + next;
         }
     }
 
-    private void setHelenNeeded(String next) {
-        try {
-            boolean localBool = Boolean.parseBoolean(next);
-            setHelenNeeded(localBool);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
+    private String getPeopleNeeded() {
+        return peopleNeeded;
     }
 
     private void setConsequence(String next) {
@@ -295,11 +300,11 @@ public class DataItem implements Parcelable {
     }
 
     public String getEntered() {
-        return entered;
+        return dateEntered;
     }
 
     private void setEntered(String entered) {
-        this.entered = entered;
+        this.dateEntered = entered;
     }
 
     public int getLocation() {
@@ -350,22 +355,6 @@ public class DataItem implements Parcelable {
         this.consequence = consequence;
     }
 
-    public boolean isHelenNeeded() {
-        return helenNeeded;
-    }
-
-    private void setHelenNeeded(boolean helenNeeded) {
-        this.helenNeeded = helenNeeded;
-    }
-
-    public boolean isSamNeeded() {
-        return samNeeded;
-    }
-
-    private void setSamNeeded(boolean samNeeded) {
-        this.samNeeded = samNeeded;
-    }
-
     public int getWorkLoadAnalysis() {
         return WorkLoadAnalysis;
     }
@@ -380,43 +369,6 @@ public class DataItem implements Parcelable {
 
     public void setCalculatedPriority(double calculatedPriority) {
         CalculatedPriority = calculatedPriority;
-    }
-
-    public DataItem() {
-    }
-
-    public DataItem(String itemID, String itemName, String description, int subjectivePriority,
-                    int category, String duration, String after, String deadline, String starts,
-                    String finishes, String recycles, String daysICanDoIt, String entered,
-                    int location, int weather, String earliestTimeOfDay, String latestTimeOfDay,
-                    int benefit, int consequence, boolean helenNeeded, boolean samNeeded,
-                    int workLoadAnalysis) {
-
-        if (itemID == null) {
-            itemID = UUID.randomUUID().toString();
-        }
-        this.itemID = itemID;
-        this.itemName = itemName;
-        this.description = description;
-        this.subjectivePriority = subjectivePriority;
-        this.category = category;
-        this.duration = duration;
-        this.after = after;
-        this.deadline = deadline;
-        this.starts = starts;
-        this.finishes = finishes;
-        this.recycles = recycles;
-        this.daysICanDoIt = daysICanDoIt;
-        this.entered = entered;
-        this.location = location;
-        this.weather = weather;
-        this.earliestTimeOfDay = earliestTimeOfDay;
-        this.latestTimeOfDay = latestTimeOfDay;
-        this.benefit = benefit;
-        this.consequence = consequence;
-        this.helenNeeded = helenNeeded;
-        this.samNeeded = samNeeded;
-        WorkLoadAnalysis = workLoadAnalysis;
     }
 
     public String getItemID() {
@@ -459,6 +411,67 @@ public class DataItem implements Parcelable {
         this.sortPosition = sortPosition;
     }
 
+    public DataItem() {
+    }
+
+    public DataItem(String itemID, String itemName, String description, int subjectivePriority,
+                    int category, String duration, String after, String deadline, String starts,
+                    String finishes, String recycles, String daysICanDoIt, String entered,
+                    int location, int weather, String earliestTimeOfDay, String latestTimeOfDay,
+                    int benefit, int consequence, String peopleNeeded, int workLoadAnalysis) {
+
+        if (itemID == null) {
+            itemID = UUID.randomUUID().toString();
+        }
+        this.itemID = itemID;
+        this.itemName = itemName;
+        this.description = description;
+        this.subjectivePriority = subjectivePriority;
+        this.category = category;
+        this.duration = duration;
+        this.after = after;
+        this.deadline = deadline;
+        this.starts = starts;
+        this.finishes = finishes;
+        this.recycles = recycles;
+        this.daysICanDoIt = daysICanDoIt;
+        this.dateEntered = entered;
+        this.location = location;
+        this.weather = weather;
+        this.earliestTimeOfDay = earliestTimeOfDay;
+        this.latestTimeOfDay = latestTimeOfDay;
+        this.benefit = benefit;
+        this.consequence = consequence;
+        this.peopleNeeded = peopleNeeded;
+        WorkLoadAnalysis = workLoadAnalysis;
+    }
+
+    public ContentValues toValues() {
+        ContentValues values = new ContentValues(20);
+        values.put(ItemsTable.COLUMN_ID, itemID);
+        values.put(ItemsTable.COLUMN_NAME, itemName);
+        values.put(ItemsTable.COLUMN_DESCRIPTION, description);
+        values.put(ItemsTable.COLUMN_DURATION, duration);
+        values.put(ItemsTable.COLUMN_AFTER, after);
+        values.put(ItemsTable.COLUMN_DEADLINE, deadline);
+        values.put(ItemsTable.COLUMN_START, starts);
+        values.put(ItemsTable.COLUMN_FINISH, finishes);
+        values.put(ItemsTable.COLUMN_RECYCLE, recycles);
+        values.put(ItemsTable.COLUMN_VALID_DAYS, daysICanDoIt);
+        values.put(ItemsTable.COLUMN_ENTRY_DATE, dateEntered);
+        values.put(ItemsTable.COLUMN_EARLIEST_TIME_OF_DAY, earliestTimeOfDay);
+        values.put(ItemsTable.COLUMN_LATEST_TIME_OF_DAY, latestTimeOfDay);
+        values.put(ItemsTable.COLUMN_SUBJECTIVE_PRIORITY, subjectivePriority);
+        values.put(ItemsTable.COLUMN_LOCATION, location);
+        values.put(ItemsTable.COLUMN_WEATHER, weather);
+        values.put(ItemsTable.COLUMN_CATEGORY, category);
+        values.put(ItemsTable.COLUMN_BENEFIT, benefit);
+        values.put(ItemsTable.COLUMN_CONSEQUENCES, consequence);
+        values.put(ItemsTable.COLUMN_POSITION, sortPosition);
+        values.put(ItemsTable.COLUMN_PEOPLE, peopleNeeded);
+        return values;
+    }
+
     @Override
     public String toString() {
         return "DataItem{" +
@@ -474,15 +487,14 @@ public class DataItem implements Parcelable {
                 ", finishes='" + finishes + '\'' +
                 ", recycles='" + recycles + '\'' +
                 ", daysICanDoIt='" + daysICanDoIt + '\'' +
-                ", entered='" + entered + '\'' +
+                ", entered='" + dateEntered + '\'' +
                 ", location='" + location + '\'' +
                 ", weather='" + weather + '\'' +
                 ", earliestTimeOfDay='" + earliestTimeOfDay + '\'' +
                 ", latestTimeOfDay='" + latestTimeOfDay + '\'' +
                 ", benefit=" + benefit +
                 ", consequence=" + consequence +
-                ", helenNeeded=" + helenNeeded +
-                ", samNeeded=" + samNeeded +
+                ", peopleNeeded=" + peopleNeeded +
                 ", WorkLoadAnalysis=" + WorkLoadAnalysis +
                 ", sortPosition=" + sortPosition +
                 ", CalculatedPriority=" + CalculatedPriority +
@@ -508,15 +520,14 @@ public class DataItem implements Parcelable {
         dest.writeString(this.finishes);
         dest.writeString(this.recycles);
         dest.writeString(this.daysICanDoIt);
-        dest.writeString(this.entered);
+        dest.writeString(this.dateEntered);
         dest.writeInt(this.location);
         dest.writeInt(this.weather);
         dest.writeString(this.earliestTimeOfDay);
         dest.writeString(this.latestTimeOfDay);
         dest.writeInt(this.benefit);
         dest.writeInt(this.consequence);
-        dest.writeByte(this.helenNeeded ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.samNeeded ? (byte) 1 : (byte) 0);
+        dest.writeString(this.peopleNeeded);
         dest.writeInt(this.WorkLoadAnalysis);
         dest.writeInt(this.sortPosition);
         dest.writeDouble(this.CalculatedPriority);
@@ -535,15 +546,14 @@ public class DataItem implements Parcelable {
         this.finishes = in.readString();
         this.recycles = in.readString();
         this.daysICanDoIt = in.readString();
-        this.entered = in.readString();
+        this.dateEntered = in.readString();
         this.location = in.readInt();
         this.weather = in.readInt();
         this.earliestTimeOfDay = in.readString();
         this.latestTimeOfDay = in.readString();
         this.benefit = in.readInt();
         this.consequence = in.readInt();
-        this.helenNeeded = in.readByte() != 0;
-        this.samNeeded = in.readByte() != 0;
+        this.peopleNeeded = in.readString();
         this.WorkLoadAnalysis = in.readInt();
         this.sortPosition = in.readInt();
         this.CalculatedPriority = in.readDouble();

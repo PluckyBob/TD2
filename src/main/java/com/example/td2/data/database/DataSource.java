@@ -1,10 +1,17 @@
 package com.example.td2.data.database;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.DatabaseUtils;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import com.example.td2.data.model.DataItem;
 
 public class DataSource {
+    private static final String TAG = "TAG: DataSource: ";
     private Context mContext;
     private SQLiteDatabase mDatabase;
     SQLiteOpenHelper mDbHelper;
@@ -13,7 +20,6 @@ public class DataSource {
         this.mContext = context;
         mDbHelper = new DBHelper(mContext);
         mDatabase = mDbHelper.getWritableDatabase();
-
     }
 
     public void open(){
@@ -22,5 +28,20 @@ public class DataSource {
     }
     public void close(){
         mDbHelper.close();
+    }
+
+    public DataItem createItem(DataItem item){
+        ContentValues values = item.toValues();
+//        mDatabase.insert(ItemsTable.TABLE_ITEMS, null, values);
+        try {
+            mDatabase.insertOrThrow(ItemsTable.TABLE_ITEMS,null,values);
+        } catch (SQLException e) {
+            Log.i (TAG,"insertOrThrow catch: " + e);
+            e.printStackTrace();
+        }
+        return item;
+    }
+    public long getDataItemsCount(){
+        return DatabaseUtils.queryNumEntries(mDatabase, ItemsTable.TABLE_ITEMS);
     }
 }

@@ -15,14 +15,8 @@ public class DataFromJSON {
 
     public DataFromJSON(Context mContext) {
         dataItemList = JSONHelper.importFromJSON(mContext);
-        if(dataItemList !=null)
-        {
-            for (DataItem dataitem :
-                    dataItemList) {
-                Log.i(TAG, "onOptionsItemSelected: " + dataitem.getItemName());
-            }
-        } else{
-            Log.i(TAG, "No data items in dataItemList!");
+        if(dataItemList ==null){
+            Log.i(TAG, "Error - No data items in dataItemList from JSONHelper");
         }
     }
 }

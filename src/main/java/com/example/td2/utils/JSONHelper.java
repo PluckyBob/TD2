@@ -55,7 +55,6 @@ public class JSONHelper {
     public static List<DataItem> importFromJSON(Context context) {
         FileReader reader = null;
         try {
-//            File file = new File("/sdcard/menuitems.json");
             File file = new File(Environment.getExternalStorageDirectory(),FILE_NAME);
             Log.i(TAG, "file exists = "+ file.exists());
             reader = new FileReader(file);
