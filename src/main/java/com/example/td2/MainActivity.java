@@ -47,33 +47,19 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "onCreate");
         //GET THE DATA ITEM LIST
         if (!permissionGranted) checkPermissions();
-        DataFromJSON fromJSON = new DataFromJSON(this);
-        dataItemList = DataFromJSON.dataItemList;
-        DataItemAdapter adapter = new DataItemAdapter(this, dataItemList);
 
         mDataSource = new DataSource(this);
         mDataSource.open();
-        long numItems = mDataSource.getDataItemsCount();
-        if (numItems == 0) {
-            for (DataItem item : dataItemList) {
-                try {
-                    mDataSource.createItem(item);
-                } catch (SQLiteException e) {
-                    e.printStackTrace();
-                }
-            }
-            Toast.makeText(this, "Database Inserted " + numItems, Toast.LENGTH_LONG).show();
-            Log.i(TAG, "Database inserted " + mDataSource.getDataItemsCount());
-        } else {
-            Toast.makeText(this, "Database already Inserted", Toast.LENGTH_LONG).show();
-            Log.i(TAG, "Database already inserted");
-        }
-        Log.i(TAG, "Database acquired");
+        mDataSource.seedDataBase(dataItemList);
 
-        Collections.sort(dataItemList, (o1, o2) ->
-                o1.getItemName().compareTo(o2.getItemName()));
+//        DataFromJSON fromJSON = new DataFromJSON(this);
+//        dataItemList = DataFromJSON.dataItemList;
+//        Collections.sort(dataItemList, (o1, o2) ->
+//                o1.getItemName().compareTo(o2.getItemName()));
 
+        List<DataItem> listFromDB= mDataSource.getAllItems();
 
+        DataItemAdapter adapter = new DataItemAdapter(this, listFromDB);
 
         /*access preference status*/
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);

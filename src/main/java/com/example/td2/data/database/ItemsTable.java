@@ -29,6 +29,15 @@ public class ItemsTable {
     public static final String COLUMN_PEOPLE = "people";
     //double
     public static final String COLUMN_CALCULATED_PRIORITY = "CalculatedPriority";
+    public static final String[] ALL_COLUMNS = {
+            COLUMN_ID, COLUMN_NAME, COLUMN_DESCRIPTION, COLUMN_DURATION,
+            COLUMN_AFTER, COLUMN_DEADLINE, COLUMN_START, COLUMN_FINISH,
+            COLUMN_RECYCLE, COLUMN_VALID_DAYS, COLUMN_ENTRY_DATE,
+            COLUMN_EARLIEST_TIME_OF_DAY, COLUMN_LATEST_TIME_OF_DAY,
+            COLUMN_CALCULATED_PRIORITY, COLUMN_CATEGORY, COLUMN_LOCATION,
+            COLUMN_WEATHER, COLUMN_BENEFIT, COLUMN_CONSEQUENCES,
+            COLUMN_WORKLOAD, COLUMN_POSITION, COLUMN_PEOPLE
+    };
 
     public static final String SQL_CREATE =
             "CREATE TABLE " + TABLE_ITEMS + "(" +
@@ -55,7 +64,7 @@ public class ItemsTable {
                     COLUMN_RECYCLE + " TEXT," +
                     COLUMN_WORKLOAD + " INTEGER," +
                     COLUMN_ENTRY_DATE + " TEXT" + ");";
-    
+
     public static final String SQL_DELETE =
             "DROP TABLE " + TABLE_ITEMS;
 }
