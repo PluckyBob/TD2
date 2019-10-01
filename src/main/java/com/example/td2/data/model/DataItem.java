@@ -124,8 +124,8 @@ public class DataItem implements Parcelable {
         //Log.i(TAG, "Recycle: " + getRecycles());
         setDaysICanDoIt(sortedLineFromFile.get(DAY));
         //Log.i(TAG, "Days I can do it: " + getDaysICanDoIt());
-        setEntered(sortedLineFromFile.get(ENT));
-        //Log.i(TAG, "Entry date " + getEntered());
+        setDateEntered(sortedLineFromFile.get(ENT));
+        //Log.i(TAG, "Entry date " + getDateEntered());
         setLocation(sortedLineFromFile.get(LOC));
         //Log.i(TAG, "Location: " + getLocation());
         setWeather(sortedLineFromFile.get(WEA));
@@ -204,7 +204,7 @@ public class DataItem implements Parcelable {
         }
     }
 
-    private String getPeopleNeeded() {
+    public String getPeopleNeeded() {
         return peopleNeeded;
     }
 
@@ -297,14 +297,6 @@ public class DataItem implements Parcelable {
 
     public void setDaysICanDoIt(String daysICanDoIt) {
         this.daysICanDoIt = daysICanDoIt;
-    }
-
-    public String getEntered() {
-        return dateEntered;
-    }
-
-    private void setEntered(String entered) {
-        this.dateEntered = entered;
     }
 
     public int getLocation() {
@@ -447,7 +439,7 @@ public class DataItem implements Parcelable {
     }
 
     public ContentValues toValues() {
-        ContentValues values = new ContentValues(20);
+        ContentValues values = new ContentValues(21);
         values.put(ItemsTable.COLUMN_ID, itemID);
         values.put(ItemsTable.COLUMN_NAME, itemName);
         values.put(ItemsTable.COLUMN_DESCRIPTION, description);
@@ -478,7 +470,7 @@ public class DataItem implements Parcelable {
                 "itemID='" + itemID + '\'' +
                 ", itemName='" + itemName + '\'' +
                 ", description='" + description + '\'' +
-                ", subjectivePriority=" + subjectivePriority +
+                ", subjectivePriority=" + subjectivePriority + '\'' +
                 ", category='" + category + '\'' +
                 ", duration='" + duration + '\'' +
                 ", after='" + after + '\'' +
@@ -492,12 +484,12 @@ public class DataItem implements Parcelable {
                 ", weather='" + weather + '\'' +
                 ", earliestTimeOfDay='" + earliestTimeOfDay + '\'' +
                 ", latestTimeOfDay='" + latestTimeOfDay + '\'' +
-                ", benefit=" + benefit +
-                ", consequence=" + consequence +
-                ", peopleNeeded=" + peopleNeeded +
-                ", WorkLoadAnalysis=" + WorkLoadAnalysis +
-                ", sortPosition=" + sortPosition +
-                ", CalculatedPriority=" + CalculatedPriority +
+                ", benefit=" + benefit + '\'' +
+                ", consequence=" + consequence + '\'' +
+                ", peopleNeeded=" + peopleNeeded + '\'' +
+                ", WorkLoadAnalysis=" + WorkLoadAnalysis + '\'' +
+                ", sortPosition=" + sortPosition + '\'' +
+                ", CalculatedPriority=" + CalculatedPriority + '\'' +
                 '}';
     }
 
