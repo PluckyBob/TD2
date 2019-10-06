@@ -74,9 +74,9 @@ public class DataSource {
                     null, null, null, null,
                     sortOrder);
         }else{
-            String[] locations = {String.valueOf(0),location};
+            String[] locations = {"0", location};
             cursor = mDatabase.query(ItemsTable.TABLE_ITEMS, ItemsTable.ALL_COLUMNS,
-                    ItemsTable.COLUMN_LOCATION+"=?", locations, null, null,
+                    ItemsTable.COLUMN_LOCATION+"=? OR " +ItemsTable.COLUMN_LOCATION+"=?" , locations, null, null,
                     sortOrder);
         }
         List<DataItem> dataItems = new ArrayList<>();
