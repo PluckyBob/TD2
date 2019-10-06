@@ -26,4 +26,9 @@
     <string name="import_json">Import JSON</string>
     <string name="export_json">Export JSON</string>
     <string name="export_TDF">ExportTDF</string>
+    <string-array name="locations">
+        <item>Anywhere</item>
+        <item>Home</item>
+        <item>Work</item>
+    </string-array>
 </resources>

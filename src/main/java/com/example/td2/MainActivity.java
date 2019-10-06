@@ -4,30 +4,31 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.td2.data.database.DBHelper;
 import com.example.td2.data.database.DataSource;
 import com.example.td2.data.model.DataItem;
-import com.example.td2.data.sample.DataFromJSON;
 import com.example.td2.data.sample.DataFromTDF;
 import com.example.td2.utils.JSONHelper;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -39,27 +40,42 @@ public class MainActivity extends AppCompatActivity {
     private List<DataItem> dataItemList;// = DataFromJSON.dataItemList;
     private boolean permissionGranted;
     DataSource mDataSource;
+    List<DataItem> listFromDB;
+    DrawerLayout mDrawerLayout;
+    ListView mDrawerList;
+    String[] mLocations;
+    RecyclerView mRecyclerView;
+    DataItemAdapter mItemAdapter;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
-        Log.i(TAG, "onCreate");
-        //GET THE DATA ITEM LIST
         if (!permissionGranted) checkPermissions();
+
+        //Code to manage sliding navigation drawer
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        mLocations = getResources().getStringArray(R.array.locations);
+        mDrawerList = findViewById(R.id.left_drawer);
+        mDrawerList.setAdapter(new ArrayAdapter<>(this,
+                R.layout.drawer_list_item, mLocations));
+
+        mDrawerList.setOnItemClickListener((parent, view, position, id) -> {
+            String location = mLocations[position];
+            Toast.makeText(MainActivity.this, "You chose " + location,
+                    Toast.LENGTH_LONG).show();
+            mDrawerLayout.closeDrawer(mDrawerList);
+            DisplayDataItems(String.valueOf(position));
+        });
+        //end of navigation drawer
 
         mDataSource = new DataSource(this);
         mDataSource.open();
         mDataSource.seedDataBase(dataItemList);
+//        dataItemList = JSONHelper.importFromJSON(this);
 
-//        DataFromJSON fromJSON = new DataFromJSON(this);
-//        dataItemList = DataFromJSON.dataItemList;
 //        Collections.sort(dataItemList, (o1, o2) ->
 //                o1.getItemName().compareTo(o2.getItemName()));
 
-        List<DataItem> listFromDB= mDataSource.getAllItems();
-
-        DataItemAdapter adapter = new DataItemAdapter(this, listFromDB);
 
         /*access preference status*/
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
@@ -71,9 +87,14 @@ public class MainActivity extends AppCompatActivity {
 //                String weather = settings.getString(getString(R.string.weatherStatus), "SUNNY");
         };
         settings.registerOnSharedPreferenceChangeListener(prefsListener);
+        mRecyclerView = findViewById(R.id.rvItems);
+        DisplayDataItems(null);
+    }
 
-        RecyclerView recyclerView = findViewById(R.id.rvItems);
-        recyclerView.setAdapter(adapter);
+    private void DisplayDataItems(String location) {
+        listFromDB = mDataSource.getAllItems(location);
+        mItemAdapter = new DataItemAdapter(this, listFromDB);
+        mRecyclerView.setAdapter(mItemAdapter);
     }
 
     @Override
@@ -129,13 +150,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_import_JSON:
                 //this will be getting data from JSON
                 dataItemList = JSONHelper.importFromJSON(this);
-                if (dataItemList != null) {
-                    for (DataItem dataitem : dataItemList) {
-                        Log.i(TAG, "onOptionsItemSelected: " + dataitem.getItemName());
-                    }
-                } else {
-                    Log.i(TAG, "No data items to display!");
-                }
         }
         return super.onOptionsItemSelected(item);
     }
